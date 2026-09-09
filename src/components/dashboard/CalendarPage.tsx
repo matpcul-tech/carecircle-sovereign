@@ -135,7 +135,7 @@ export default function CalendarPage() {
   if (loading) {
     return (
       <div style={PAGE_PAD}>
-        <div style={{ fontSize: 12, color: '#7a9bbf', textAlign: 'center', padding: 32 }}>
+        <div style={{ fontSize: 12, color: '#A8B8C8', textAlign: 'center', padding: 32 }}>
           Loading appointments...
         </div>
       </div>
@@ -151,9 +151,9 @@ export default function CalendarPage() {
           aria-label={showAdd ? 'Close add appointment' : 'Add appointment'}
           style={{
             width: 30, height: 30, borderRadius: '50%',
-            border: '1px solid rgba(0,212,184,.4)',
-            background: showAdd ? 'rgba(0,212,184,.18)' : 'rgba(0,212,184,.08)',
-            color: '#00d4b8', fontSize: 18, lineHeight: '24px',
+            border: '1px solid rgba(123,200,160,.4)',
+            background: showAdd ? 'rgba(123,200,160,.18)' : 'rgba(123,200,160,.08)',
+            color: '#7BC8A0', fontSize: 18, lineHeight: '24px',
             cursor: 'pointer', fontFamily: O,
           }}
         >{showAdd ? '×' : '+'}</button>
@@ -162,7 +162,7 @@ export default function CalendarPage() {
       {error && (
         <div style={{
           background: 'rgba(232,82,110,.1)', border: '1px solid rgba(232,82,110,.3)',
-          borderRadius: 12, padding: 12, fontSize: 11, color: '#e8526e', marginBottom: 12,
+          borderRadius: 12, padding: 12, fontSize: 11, color: '#E05C3A', marginBottom: 12,
         }}>{error}</div>
       )}
 
@@ -179,7 +179,7 @@ export default function CalendarPage() {
             disabled={submitting}
             style={{
               width: '100%', padding: '10px 0', borderRadius: 10, border: 'none',
-              background: 'linear-gradient(135deg,#00d4b8,#00b89e)', color: '#07101f',
+              background: 'linear-gradient(135deg,#7BC8A0,#3D8B5E)', color: '#0B1829',
               fontSize: 12, fontWeight: 700, fontFamily: O,
               cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.6 : 1, marginTop: 6,
             }}
@@ -190,7 +190,7 @@ export default function CalendarPage() {
       {appts.length === 0 ? (
         <div style={{
           background: CARD_BG, border: CARD_BORDER, borderRadius: 12,
-          padding: 16, fontSize: 11, color: '#7a9bbf', textAlign: 'center',
+          padding: 16, fontSize: 11, color: '#A8B8C8', textAlign: 'center',
         }}>No upcoming appointments. Tap + to add one.</div>
       ) : (
         appts.map(a => (
@@ -201,15 +201,15 @@ export default function CalendarPage() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 8 }}>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{
-                  fontFamily: T, fontSize: 9, color: '#00d4b8',
+                  fontFamily: T, fontSize: 9, color: '#7BC8A0',
                   textTransform: 'uppercase', letterSpacing: '.12em', marginBottom: 4,
                 }}>{fmtDateLong(a.appt_date)}{a.appt_time ? ` · ${fmtTime(a.appt_time)}` : ''}</div>
-                <div style={{ fontSize: 13, fontWeight: 600, color: '#eef2f8', marginBottom: 3 }}>{a.title}</div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#F4EDE1', marginBottom: 3 }}>{a.title}</div>
                 {a.provider_name && (
                   <div style={{ fontSize: 11, color: '#a3b5cc' }}>{a.provider_name}</div>
                 )}
                 {a.location && (
-                  <div style={{ fontSize: 10, color: '#7a9bbf', marginTop: 2 }}>{a.location}</div>
+                  <div style={{ fontSize: 10, color: '#A8B8C8', marginTop: 2 }}>{a.location}</div>
                 )}
                 {a.notes && (
                   <div style={{
@@ -224,7 +224,7 @@ export default function CalendarPage() {
                 title="Delete"
                 style={{
                   background: 'transparent', border: 'none', cursor: 'pointer',
-                  color: '#7a9bbf', fontSize: 18, padding: 4,
+                  color: '#A8B8C8', fontSize: 18, padding: 4,
                 }}
               >×</button>
             </div>
@@ -241,7 +241,7 @@ function FormInput({ label, value, onChange, placeholder, type = 'text' }: {
   return (
     <div style={{ marginBottom: 10 }}>
       <label style={{
-        display: 'block', fontSize: 9, color: '#7a9bbf',
+        display: 'block', fontSize: 9, color: '#A8B8C8',
         textTransform: 'uppercase', letterSpacing: '.14em', marginBottom: 4, fontFamily: T,
       }}>{label}</label>
       <input
@@ -250,8 +250,8 @@ function FormInput({ label, value, onChange, placeholder, type = 'text' }: {
         style={{
           width: '100%', padding: '9px 11px', fontSize: 12,
           background: 'rgba(255,255,255,.05)',
-          border: '1px solid rgba(0,212,184,.14)', borderRadius: 8,
-          color: '#eef2f8', outline: 'none', fontFamily: O, boxSizing: 'border-box',
+          border: '1px solid rgba(123,200,160,.14)', borderRadius: 8,
+          color: '#F4EDE1', outline: 'none', fontFamily: O, boxSizing: 'border-box',
         }}
       />
     </div>
@@ -264,7 +264,7 @@ function FormTextarea({ label, value, onChange, placeholder }: {
   return (
     <div style={{ marginBottom: 10 }}>
       <label style={{
-        display: 'block', fontSize: 9, color: '#7a9bbf',
+        display: 'block', fontSize: 9, color: '#A8B8C8',
         textTransform: 'uppercase', letterSpacing: '.14em', marginBottom: 4, fontFamily: T,
       }}>{label}</label>
       <textarea
@@ -273,8 +273,8 @@ function FormTextarea({ label, value, onChange, placeholder }: {
         style={{
           width: '100%', padding: '9px 11px', fontSize: 12,
           background: 'rgba(255,255,255,.05)',
-          border: '1px solid rgba(0,212,184,.14)', borderRadius: 8,
-          color: '#eef2f8', outline: 'none', fontFamily: O, boxSizing: 'border-box',
+          border: '1px solid rgba(123,200,160,.14)', borderRadius: 8,
+          color: '#F4EDE1', outline: 'none', fontFamily: O, boxSizing: 'border-box',
           resize: 'vertical',
         }}
       />

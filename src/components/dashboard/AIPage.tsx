@@ -94,13 +94,13 @@ export default function AIPage({
             width: 40,
             height: 40,
             borderRadius: '50%',
-            background: 'linear-gradient(135deg,#00d4b8,#8060cc)',
+            background: 'linear-gradient(135deg,#7BC8A0,#8060cc)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontFamily: T,
             fontWeight: 700,
-            color: '#07101f',
+            color: '#0B1829',
             fontSize: 16,
             flexShrink: 0,
           }}
@@ -109,7 +109,7 @@ export default function AIPage({
         </div>
         <div>
           <div style={{ fontSize: 13, fontWeight: 600 }}>CareCircle AI</div>
-          <div style={{ fontFamily: T, fontSize: 9, color: '#00d4b8' }}>
+          <div style={{ fontFamily: T, fontSize: 9, color: '#7BC8A0' }}>
             {patientName} · Shield Active
           </div>
         </div>
@@ -137,7 +137,7 @@ export default function AIPage({
               cursor: 'pointer',
               border: CARD_BORDER,
               background: CARD_BG,
-              color: '#7a9bbf',
+              color: '#A8B8C8',
               whiteSpace: 'nowrap',
               fontFamily: O,
             }}
@@ -156,7 +156,7 @@ export default function AIPage({
               border: CARD_BORDER,
               borderRadius: 12,
               fontSize: 11,
-              color: '#7a9bbf',
+              color: '#A8B8C8',
               lineHeight: 1.6,
             }}
           >
@@ -184,9 +184,9 @@ export default function AIPage({
                 background:
                   m.role === 'assistant'
                     ? 'rgba(255,255,255,.07)'
-                    : 'linear-gradient(135deg,#00d4b8,#00b89e)',
+                    : 'linear-gradient(135deg,#7BC8A0,#3D8B5E)',
                 border: m.role === 'assistant' ? CARD_BORDER : 'none',
-                color: m.role === 'assistant' ? '#eef2f8' : '#07101f',
+                color: m.role === 'assistant' ? '#F4EDE1' : '#0B1829',
                 fontWeight: m.role === 'user' ? 500 : 400,
                 borderBottomRightRadius: m.role === 'user' ? 4 : 18,
                 borderBottomLeftRadius: m.role === 'assistant' ? 4 : 18,
@@ -194,7 +194,7 @@ export default function AIPage({
               }}
             >
               {m.content === '...' ? (
-                <span style={{ color: '#7a9bbf', fontStyle: 'italic' }}>Thinking...</span>
+                <span style={{ color: '#A8B8C8', fontStyle: 'italic' }}>Thinking...</span>
               ) : (
                 m.content
               )}
@@ -233,7 +233,7 @@ export default function AIPage({
               borderRadius: 24,
               padding: '11px 17px',
               fontSize: 12,
-              color: '#eef2f8',
+              color: '#F4EDE1',
               fontFamily: O,
               outline: 'none',
             }}
@@ -255,16 +255,16 @@ export default function AIPage({
               borderRadius: '50%',
               border: 'none',
               cursor: loading ? 'not-allowed' : 'pointer',
-              background: 'linear-gradient(135deg,#00d4b8,#00b89e)',
+              background: 'linear-gradient(135deg,#7BC8A0,#3D8B5E)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontFamily: T,
               fontWeight: 700,
-              color: '#07101f',
+              color: '#0B1829',
               fontSize: 13,
               flexShrink: 0,
-              boxShadow: '0 4px 14px rgba(0,212,184,.28)',
+              boxShadow: '0 4px 14px rgba(123,200,160,.28)',
               opacity: loading ? 0.5 : 1,
             }}
             onClick={() => send()}

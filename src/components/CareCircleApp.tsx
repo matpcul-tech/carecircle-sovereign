@@ -36,14 +36,14 @@ const P = "'Playfair Display',serif";
 const O = "'Outfit',sans-serif";
 
 // Primary accent: CareCircle teal (matches the marketing site CTA).
-const TEAL = '#14b8a6';
-const TEAL2 = '#2dd4bf';
+const TEAL = '#3D8B5E';
+const TEAL2 = '#7BC8A0';
 const OK = '#4ade80';
-const WARN = '#d4a843';
-const ALERT = '#e8526e';
-const MUTED = '#7a9bbf';
+const WARN = '#C07941';
+const ALERT = '#E05C3A';
+const MUTED = '#A8B8C8';
 const SUB = '#a3b5cc';
-const INK = '#eef2f8';
+const INK = '#F4EDE1';
 const BG = '#0a1628';
 const CARD = 'rgba(255,255,255,0.04)';
 const BORDER = '1px solid rgba(255,255,255,0.06)';
@@ -628,7 +628,7 @@ function PatientCard({
             height: 44,
             borderRadius: '50%',
             background: `linear-gradient(135deg, ${TEAL}, ${TEAL2})`,
-            color: '#042f2a',
+            color: '#0d2a1c',
             fontWeight: 800,
             fontSize: 16,
             display: 'flex',
@@ -1409,7 +1409,7 @@ function FamilyView({ session, router }: { session: CCSession; router: ReturnTyp
                       height: 44,
                       borderRadius: '50%',
                       background: `linear-gradient(135deg, ${c}, ${c}aa)`,
-                      color: '#042f2a',
+                      color: '#0d2a1c',
                       fontWeight: 800,
                       fontSize: 13,
                       display: 'flex',
@@ -1561,7 +1561,7 @@ function AIView({ session, router }: { session: CCSession; router: ReturnType<ty
               height: 36,
               borderRadius: 9,
               background: `linear-gradient(135deg, ${TEAL}, ${TEAL2})`,
-              color: '#042f2a',
+              color: '#0d2a1c',
               fontSize: 13,
               fontWeight: 800,
               display: 'flex',
@@ -1631,7 +1631,7 @@ function AIView({ session, router }: { session: CCSession; router: ReturnType<ty
                 padding: '9px 12px',
                 borderRadius: 12,
                 background: m.role === 'user' ? `linear-gradient(135deg, ${TEAL}, ${TEAL2})` : '#111827',
-                color: m.role === 'user' ? '#042f2a' : '#e2e8f0',
+                color: m.role === 'user' ? '#0d2a1c' : '#e2e8f0',
                 fontSize: 12,
                 lineHeight: 1.55,
                 wordBreak: 'break-word',
@@ -1707,7 +1707,7 @@ function AIView({ session, router }: { session: CCSession; router: ReturnType<ty
             borderRadius: '50%',
             border: 'none',
             background: `linear-gradient(135deg, ${TEAL}, ${TEAL2})`,
-            color: '#042f2a',
+            color: '#0d2a1c',
             fontSize: 16,
             fontWeight: 700,
             cursor: sending || !input.trim() ? 'not-allowed' : 'pointer',
@@ -1850,11 +1850,11 @@ function AlertRow({ alert }: { alert: ActiveAlert }) {
   const bg =
     alert.severity === 'critical'
       ? 'rgba(232,82,110,0.06)'
-      : 'rgba(212,168,67,0.06)';
+      : 'rgba(192,121,65,0.06)';
   const border =
     alert.severity === 'critical'
       ? '1px solid rgba(232,82,110,0.3)'
-      : '1px solid rgba(212,168,67,0.3)';
+      : '1px solid rgba(192,121,65,0.3)';
   return (
     <div
       style={{
@@ -2006,13 +2006,13 @@ export default function CareCircleApp() {
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600;700&display=swap');
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
         @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-        .sov{display:flex;flex-direction:column;height:100vh;height:100dvh;font-family:'Outfit',sans-serif;color:#eef2f8;background:${BG};position:relative;overflow:hidden;max-width:480px;margin:0 auto}
+        .sov{display:flex;flex-direction:column;height:100vh;height:100dvh;font-family:'Outfit',sans-serif;color:#F4EDE1;background:${BG};position:relative;overflow:hidden;max-width:480px;margin:0 auto}
         .sov::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80% 40% at 80% 0%,rgba(20,184,166,0.08) 0%,transparent 60%),radial-gradient(ellipse 60% 60% at 0% 100%,rgba(45,212,191,0.06) 0%,transparent 60%)}
         .sov-hdr{position:relative;z-index:10;flex-shrink:0;padding:14px 18px 12px;background:rgba(10,22,40,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06)}
         .sov-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;position:relative;z-index:1}
         .sov-pad{padding:14px 18px calc(96px + env(safe-area-inset-bottom,0px))}
         .sov-bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(10,22,40,0.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.06);display:grid;grid-template-columns:repeat(6,1fr);padding:8px 4px calc(10px + env(safe-area-inset-bottom,0px));z-index:20}
-        .sov-bnav-btn{background:transparent;border:none;color:#7a9bbf;font-family:'Outfit',sans-serif;font-size:10px;font-weight:600;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 4px;border-radius:9px;transition:color .2s;min-height:50px;justify-content:center;position:relative}
+        .sov-bnav-btn{background:transparent;border:none;color:#A8B8C8;font-family:'Outfit',sans-serif;font-size:10px;font-weight:600;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 4px;border-radius:9px;transition:color .2s;min-height:50px;justify-content:center;position:relative}
         .sov-bnav-btn.on{color:${TEAL}}
         .sov-bnav-btn.on::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:32px;height:2px;background:linear-gradient(90deg,${TEAL},${TEAL2});border-radius:0 0 2px 2px}
       `}</style>
@@ -2031,7 +2031,7 @@ export default function CareCircleApp() {
                   justifyContent: 'center',
                   fontSize: 14,
                   fontWeight: 800,
-                  color: '#042f2a',
+                  color: '#0d2a1c',
                   flexShrink: 0,
                   letterSpacing: '.05em',
                 }}

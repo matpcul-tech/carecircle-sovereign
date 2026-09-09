@@ -162,7 +162,7 @@ export default function MedsPage() {
   if (loading) {
     return (
       <div style={PAGE_PAD}>
-        <div style={{ fontSize: 12, color: '#7a9bbf', textAlign: 'center', padding: 32 }}>
+        <div style={{ fontSize: 12, color: '#A8B8C8', textAlign: 'center', padding: 32 }}>
           Loading medications...
         </div>
       </div>
@@ -178,9 +178,9 @@ export default function MedsPage() {
           aria-label={showAdd ? 'Close add medication' : 'Add medication'}
           style={{
             width: 30, height: 30, borderRadius: '50%',
-            border: '1px solid rgba(0,212,184,.4)',
-            background: showAdd ? 'rgba(0,212,184,.18)' : 'rgba(0,212,184,.08)',
-            color: '#00d4b8', fontSize: 18, lineHeight: '24px',
+            border: '1px solid rgba(123,200,160,.4)',
+            background: showAdd ? 'rgba(123,200,160,.18)' : 'rgba(123,200,160,.08)',
+            color: '#7BC8A0', fontSize: 18, lineHeight: '24px',
             cursor: 'pointer', fontFamily: O,
           }}
         >{showAdd ? '×' : '+'}</button>
@@ -189,7 +189,7 @@ export default function MedsPage() {
       {error && (
         <div style={{
           background: 'rgba(232,82,110,.1)', border: '1px solid rgba(232,82,110,.3)',
-          borderRadius: 12, padding: 12, fontSize: 11, color: '#e8526e', marginBottom: 12,
+          borderRadius: 12, padding: 12, fontSize: 11, color: '#E05C3A', marginBottom: 12,
         }}>{error}</div>
       )}
 
@@ -206,7 +206,7 @@ export default function MedsPage() {
             disabled={submitting}
             style={{
               width: '100%', padding: '10px 0', borderRadius: 10, border: 'none',
-              background: 'linear-gradient(135deg,#00d4b8,#00b89e)', color: '#07101f',
+              background: 'linear-gradient(135deg,#7BC8A0,#3D8B5E)', color: '#0B1829',
               fontSize: 12, fontWeight: 700, fontFamily: O,
               cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.6 : 1, marginTop: 6,
             }}
@@ -217,7 +217,7 @@ export default function MedsPage() {
       {meds.length === 0 ? (
         <div style={{
           background: CARD_BG, border: CARD_BORDER, borderRadius: 12,
-          padding: 16, fontSize: 11, color: '#7a9bbf', textAlign: 'center',
+          padding: 16, fontSize: 11, color: '#A8B8C8', textAlign: 'center',
         }}>No medications on file. Tap + to add one.</div>
       ) : (
         meds.map(m => {
@@ -233,22 +233,22 @@ export default function MedsPage() {
                   aria-label={taken ? 'Mark as not taken' : 'Mark as taken today'}
                   style={{
                     width: 24, height: 24, borderRadius: 6, flexShrink: 0,
-                    border: `1px solid ${taken ? '#00d4b8' : 'rgba(0,212,184,.3)'}`,
-                    background: taken ? '#00d4b8' : 'transparent',
-                    color: '#07101f', fontSize: 14, lineHeight: '22px',
+                    border: `1px solid ${taken ? '#7BC8A0' : 'rgba(123,200,160,.3)'}`,
+                    background: taken ? '#7BC8A0' : 'transparent',
+                    color: '#0B1829', fontSize: 14, lineHeight: '22px',
                     cursor: 'pointer', marginTop: 2,
                   }}
                 >{taken ? '✓' : ''}</button>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: '#eef2f8', marginBottom: 2 }}>{m.name}</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#F4EDE1', marginBottom: 2 }}>{m.name}</div>
                   {(m.dose || m.frequency) && (
                     <div style={{ fontSize: 11, color: '#a3b5cc' }}>
                       {m.dose ? m.dose : ''}{m.dose && m.frequency ? ' · ' : ''}{m.frequency || ''}
                     </div>
                   )}
-                  {m.time_of_day && <div style={{ fontSize: 10, color: '#7a9bbf', marginTop: 2 }}>Time: {m.time_of_day}</div>}
-                  {m.prescribing_doctor && <div style={{ fontSize: 10, color: '#7a9bbf', marginTop: 1 }}>Rx: {m.prescribing_doctor}</div>}
-                  {m.start_date && <div style={{ fontFamily: T, fontSize: 9, color: '#7a9bbf', marginTop: 3 }}>Started {m.start_date}</div>}
+                  {m.time_of_day && <div style={{ fontSize: 10, color: '#A8B8C8', marginTop: 2 }}>Time: {m.time_of_day}</div>}
+                  {m.prescribing_doctor && <div style={{ fontSize: 10, color: '#A8B8C8', marginTop: 1 }}>Rx: {m.prescribing_doctor}</div>}
+                  {m.start_date && <div style={{ fontFamily: T, fontSize: 9, color: '#A8B8C8', marginTop: 3 }}>Started {m.start_date}</div>}
                   {taken && <div style={{ fontFamily: T, fontSize: 9, color: '#4ade80', marginTop: 3 }}>Taken today</div>}
                 </div>
                 <button
@@ -257,7 +257,7 @@ export default function MedsPage() {
                   title="Archive"
                   style={{
                     background: 'transparent', border: 'none', cursor: 'pointer',
-                    color: '#7a9bbf', fontSize: 18, padding: 4, alignSelf: 'flex-start',
+                    color: '#A8B8C8', fontSize: 18, padding: 4, alignSelf: 'flex-start',
                   }}
                 >×</button>
               </div>
@@ -279,7 +279,7 @@ function FormInput({ label, value, onChange, placeholder, type = 'text' }: {
   return (
     <div style={{ marginBottom: 10 }}>
       <label style={{
-        display: 'block', fontSize: 9, color: '#7a9bbf',
+        display: 'block', fontSize: 9, color: '#A8B8C8',
         textTransform: 'uppercase', letterSpacing: '.14em',
         marginBottom: 4, fontFamily: T,
       }}>{label}</label>
@@ -291,8 +291,8 @@ function FormInput({ label, value, onChange, placeholder, type = 'text' }: {
         style={{
           width: '100%', padding: '9px 11px', fontSize: 12,
           background: 'rgba(255,255,255,.05)',
-          border: '1px solid rgba(0,212,184,.14)', borderRadius: 8,
-          color: '#eef2f8', outline: 'none', fontFamily: O, boxSizing: 'border-box',
+          border: '1px solid rgba(123,200,160,.14)', borderRadius: 8,
+          color: '#F4EDE1', outline: 'none', fontFamily: O, boxSizing: 'border-box',
         }}
       />
     </div>

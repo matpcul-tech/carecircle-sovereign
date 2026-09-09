@@ -70,7 +70,7 @@ export default function HomePage({
           style={{
             fontFamily: "'Playfair Display',serif",
             fontSize: 22,
-            color: '#eef2f8',
+            color: '#F4EDE1',
             marginBottom: 4,
           }}
         >
@@ -83,13 +83,13 @@ export default function HomePage({
               paddingTop: 12,
               borderTop: CARD_BORDER,
               fontSize: 11,
-              color: '#7a9bbf',
+              color: '#A8B8C8',
               lineHeight: 1.5,
             }}
           >
-            Signed in as <strong style={{ color: '#eef2f8' }}>{me.member_name}</strong>,{' '}
+            Signed in as <strong style={{ color: '#F4EDE1' }}>{me.member_name}</strong>,{' '}
             {me.relationship}. Alert preference:{' '}
-            <strong style={{ color: me.alert_level === 'critical' ? '#e8526e' : '#00d4b8' }}>
+            <strong style={{ color: me.alert_level === 'critical' ? '#E05C3A' : '#7BC8A0' }}>
               {me.alert_level === 'critical' ? 'critical only' : 'all alerts'}
             </strong>
             .
@@ -100,7 +100,7 @@ export default function HomePage({
       <div style={{ ...SECTION_LABEL, margin: '20px 0 10px' }}>Alert summary</div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 12 }}>
         <div style={{ background: CARD_BG, border: CARD_BORDER, borderRadius: 12, padding: '12px 14px' }}>
-          <div style={{ fontFamily: T, fontSize: 9, color: '#7a9bbf', textTransform: 'uppercase', letterSpacing: '.1em' }}>
+          <div style={{ fontFamily: T, fontSize: 9, color: '#A8B8C8', textTransform: 'uppercase', letterSpacing: '.1em' }}>
             Critical
           </div>
           <div
@@ -108,7 +108,7 @@ export default function HomePage({
               fontFamily: T,
               fontSize: 22,
               fontWeight: 700,
-              color: criticalCount > 0 ? '#e8526e' : '#4ade80',
+              color: criticalCount > 0 ? '#E05C3A' : '#4ade80',
               marginTop: 4,
             }}
           >
@@ -116,10 +116,10 @@ export default function HomePage({
           </div>
         </div>
         <div style={{ background: CARD_BG, border: CARD_BORDER, borderRadius: 12, padding: '12px 14px' }}>
-          <div style={{ fontFamily: T, fontSize: 9, color: '#7a9bbf', textTransform: 'uppercase', letterSpacing: '.1em' }}>
+          <div style={{ fontFamily: T, fontSize: 9, color: '#A8B8C8', textTransform: 'uppercase', letterSpacing: '.1em' }}>
             Total recent
           </div>
-          <div style={{ fontFamily: T, fontSize: 22, fontWeight: 700, color: '#eef2f8', marginTop: 4 }}>
+          <div style={{ fontFamily: T, fontSize: 22, fontWeight: 700, color: '#F4EDE1', marginTop: 4 }}>
             {alerts === null ? '...' : alerts.length}
           </div>
         </div>
@@ -134,7 +134,7 @@ export default function HomePage({
             padding: '10px 14px',
             marginBottom: 12,
             fontSize: 11,
-            color: '#e8526e',
+            color: '#E05C3A',
             lineHeight: 1.55,
           }}
         >
@@ -148,14 +148,14 @@ export default function HomePage({
             background:
               lastAlert.severity === 'critical'
                 ? 'rgba(232,82,110,.08)'
-                : 'rgba(212,168,67,.08)',
-            border: `1px solid ${lastAlert.severity === 'critical' ? 'rgba(232,82,110,.3)' : 'rgba(212,168,67,.25)'}`,
+                : 'rgba(192,121,65,.08)',
+            border: `1px solid ${lastAlert.severity === 'critical' ? 'rgba(232,82,110,.3)' : 'rgba(192,121,65,.25)'}`,
             borderRadius: 12,
             padding: 14,
             marginBottom: 12,
           }}
         >
-          <div style={{ fontFamily: T, fontSize: 9, color: '#7a9bbf', marginBottom: 4 }}>
+          <div style={{ fontFamily: T, fontSize: 9, color: '#A8B8C8', marginBottom: 4 }}>
             Last alert: {fmtTime(lastAlert.fired_at)}
           </div>
           <div
@@ -163,12 +163,12 @@ export default function HomePage({
               fontSize: 13,
               fontWeight: 700,
               marginBottom: 4,
-              color: lastAlert.severity === 'critical' ? '#e8526e' : '#d4a843',
+              color: lastAlert.severity === 'critical' ? '#E05C3A' : '#C07941',
             }}
           >
             {lastAlert.metric} · {lastAlert.severity.toUpperCase()}
           </div>
-          <div style={{ fontSize: 11, color: '#eef2f8', lineHeight: 1.55 }}>
+          <div style={{ fontSize: 11, color: '#F4EDE1', lineHeight: 1.55 }}>
             {lastAlert.recommendation}
           </div>
         </div>
@@ -197,8 +197,8 @@ export default function HomePage({
           borderRadius: 12,
           border: 'none',
           cursor: 'pointer',
-          background: 'linear-gradient(135deg,#00d4b8,#00b89e)',
-          color: '#07101f',
+          background: 'linear-gradient(135deg,#7BC8A0,#3D8B5E)',
+          color: '#0B1829',
           fontSize: 12,
           fontWeight: 700,
           fontFamily: O,

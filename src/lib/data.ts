@@ -144,7 +144,7 @@ export const EMERGENCY_CONTACTS: EmergencyContact[] = [
 
 export const FEED_ITEMS: FeedItem[] = [
   { who: 'Sarah', action: 'logged', what: "Marked Eleanor's morning meds as taken (Lisinopril, Metformin, Aspirin)", time: '2h ago', avatar: 'S', color: '#81B29A' },
-  { who: 'CareCircle AI', action: 'detected', what: 'Amlodipine refill needed in 4 days. Want me to call CVS?', time: '4h ago', avatar: '🤖', color: '#00d4b8' },
+  { who: 'CareCircle AI', action: 'detected', what: 'Amlodipine refill needed in 4 days. Want me to call CVS?', time: '4h ago', avatar: '🤖', color: '#7BC8A0' },
   { who: 'Maria Lopez', action: 'completed', what: 'Morning care visit and vitals — BP 138/86, weight 167 lbs', time: '8h ago', avatar: 'M', color: '#5B8FA8' },
   { who: 'James', action: 'scheduled', what: 'Confirmed lab transportation for Tuesday 7:00 AM', time: '1d ago', avatar: 'J', color: '#F2CC8F' },
   { who: 'Dr. Santos', action: 'reviewed', what: 'Lab results — A1C at 7.2% flagged for follow-up', time: 'Apr 15', avatar: 'MS', color: '#8B7EC8' },
@@ -158,12 +158,12 @@ export const AI_SUGGESTIONS = [
 ];
 
 export const CAREIQ_DATA = [
-  { label: 'Health Score', value: '62/100', color: '#d4a843', trend: 'down 4 pts' },
-  { label: 'A1C', value: '7.2%', color: '#d4a843', trend: 'Elevated' },
-  { label: 'BP', value: '138/86', color: '#d4a843', trend: 'Watch' },
-  { label: 'LDL', value: '142 mg/dL', color: '#00d4b8', trend: 'In range' },
-  { label: 'Care Gaps', value: '3 open', color: '#e8526e', trend: 'Critical' },
-  { label: 'Med Adherence', value: '74%', color: '#d4a843', trend: 'Below target' },
+  { label: 'Health Score', value: '62/100', color: '#C07941', trend: 'down 4 pts' },
+  { label: 'A1C', value: '7.2%', color: '#C07941', trend: 'Elevated' },
+  { label: 'BP', value: '138/86', color: '#C07941', trend: 'Watch' },
+  { label: 'LDL', value: '142 mg/dL', color: '#7BC8A0', trend: 'In range' },
+  { label: 'Care Gaps', value: '3 open', color: '#E05C3A', trend: 'Critical' },
+  { label: 'Med Adherence', value: '74%', color: '#C07941', trend: 'Below target' },
 ];
 
 export const CARE_GAPS = [

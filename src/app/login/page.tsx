@@ -35,7 +35,7 @@ interface SupabaseTokenResponse {
 
 const card: React.CSSProperties = {
   background: 'rgba(255,255,255,.04)',
-  border: '1px solid rgba(0,212,184,.14)',
+  border: '1px solid rgba(123,200,160,.14)',
   borderRadius: 18,
   padding: 24,
 };
@@ -43,11 +43,11 @@ const card: React.CSSProperties = {
 const input: React.CSSProperties = {
   width: '100%',
   background: 'rgba(255,255,255,.05)',
-  border: '1px solid rgba(0,212,184,.14)',
+  border: '1px solid rgba(123,200,160,.14)',
   borderRadius: 10,
   padding: '11px 14px',
   fontSize: 13,
-  color: '#eef2f8',
+  color: '#F4EDE1',
   fontFamily: O,
   outline: 'none',
   marginBottom: 10,
@@ -56,7 +56,7 @@ const input: React.CSSProperties = {
 const label: React.CSSProperties = {
   fontFamily: T,
   fontSize: 9,
-  color: '#7a9bbf',
+  color: '#A8B8C8',
   textTransform: 'uppercase',
   letterSpacing: '.18em',
   marginBottom: 6,
@@ -240,8 +240,8 @@ export default function LoginPage() {
       <div
         style={{
           minHeight: '100vh',
-          background: '#07101f',
-          color: '#7a9bbf',
+          background: '#0B1829',
+          color: '#A8B8C8',
           fontFamily: O,
           display: 'flex',
           alignItems: 'center',
@@ -261,9 +261,9 @@ export default function LoginPage() {
     <div
       style={{
         minHeight: '100vh',
-        background: '#07101f',
+        background: '#0B1829',
         fontFamily: O,
-        color: '#eef2f8',
+        color: '#F4EDE1',
         padding: '40px 20px',
       }}
     >
@@ -271,7 +271,7 @@ export default function LoginPage() {
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600;700&display=swap');
         *{box-sizing:border-box}
         input::placeholder{color:#516a87}
-        input:focus{border-color:#00d4b8 !important}
+        input:focus{border-color:#7BC8A0 !important}
       `}</style>
 
       <div style={{ maxWidth: 460, margin: '0 auto' }}>
@@ -290,16 +290,16 @@ export default function LoginPage() {
               width: 36,
               height: 36,
               borderRadius: 10,
-              background: 'linear-gradient(135deg,#00b89e,#8060cc)',
+              background: 'linear-gradient(135deg,#3D8B5E,#8060cc)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 0 14px rgba(0,212,184,.3)',
+              boxShadow: '0 0 14px rgba(123,200,160,.3)',
             }}
           >
             <Heart size={16} color="#fff" fill="#fff" />
           </div>
-          <div style={{ fontFamily: P, fontSize: 18, color: '#eef2f8' }}>
+          <div style={{ fontFamily: P, fontSize: 18, color: '#F4EDE1' }}>
             CareCircle
           </div>
         </Link>
@@ -308,7 +308,7 @@ export default function LoginPage() {
           style={{
             fontFamily: T,
             fontSize: 10,
-            color: '#00d4b8',
+            color: '#7BC8A0',
             textTransform: 'uppercase',
             letterSpacing: '.18em',
             marginBottom: 8,
@@ -345,7 +345,7 @@ export default function LoginPage() {
                 onKeyDown={(e) => { if (e.key === 'Enter') submit(); }}
               />
               <div style={{ textAlign: 'right', marginBottom: 6 }}>
-                <Link href="/reset" style={{ fontSize: 11, color: '#7a9bbf', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+                <Link href="/reset" style={{ fontSize: 11, color: '#A8B8C8', textDecoration: 'underline', textUnderlineOffset: 3 }}>
                   Forgot password?
                 </Link>
               </div>
@@ -363,7 +363,7 @@ export default function LoginPage() {
                 onChange={(e) => setCode(e.target.value)}
                 onKeyDown={(e) => { if (e.key === 'Enter') verifyMfa(); }}
               />
-              <div style={{ fontSize: 11, color: '#7a9bbf', lineHeight: 1.6, marginBottom: 4 }}>
+              <div style={{ fontSize: 11, color: '#A8B8C8', lineHeight: 1.6, marginBottom: 4 }}>
                 Enter the 6-digit code from your authenticator app, or one of your backup codes.
               </div>
             </>
@@ -378,7 +378,7 @@ export default function LoginPage() {
                 fontSize: 11,
                 background: 'rgba(232,82,110,.1)',
                 border: '1px solid rgba(232,82,110,.3)',
-                color: '#e8526e',
+                color: '#E05C3A',
               }}
             >
               {error}
@@ -394,33 +394,33 @@ export default function LoginPage() {
               borderRadius: 12,
               border: 'none',
               cursor: submitting ? 'not-allowed' : 'pointer',
-              background: 'linear-gradient(135deg,#00d4b8,#00b89e)',
-              color: '#07101f',
+              background: 'linear-gradient(135deg,#7BC8A0,#3D8B5E)',
+              color: '#0B1829',
               fontSize: 14,
               fontWeight: 700,
               fontFamily: O,
               opacity: submitting ? 0.6 : 1,
-              boxShadow: '0 0 20px rgba(0,212,184,.3)',
+              boxShadow: '0 0 20px rgba(123,200,160,.3)',
             }}
           >
             {submitting ? (mfaToken ? 'Verifying...' : 'Signing in...') : mfaToken ? 'Verify code' : 'Sign in'}
           </button>
 
           {mfaToken ? (
-            <p style={{ marginTop: 18, fontSize: 11, color: '#7a9bbf', textAlign: 'center', lineHeight: 1.6 }}>
+            <p style={{ marginTop: 18, fontSize: 11, color: '#A8B8C8', textAlign: 'center', lineHeight: 1.6 }}>
               <button
                 onClick={() => { setMfaToken(null); setCode(''); setError(null); }}
-                style={{ background: 'none', border: 'none', color: '#00d4b8', textDecoration: 'underline', textUnderlineOffset: 3, cursor: 'pointer', fontFamily: O, fontSize: 11 }}
+                style={{ background: 'none', border: 'none', color: '#7BC8A0', textDecoration: 'underline', textUnderlineOffset: 3, cursor: 'pointer', fontFamily: O, fontSize: 11 }}
               >
                 Cancel and start over
               </button>
             </p>
           ) : (
-            <p style={{ marginTop: 18, fontSize: 11, color: '#7a9bbf', textAlign: 'center', lineHeight: 1.6 }}>
+            <p style={{ marginTop: 18, fontSize: 11, color: '#A8B8C8', textAlign: 'center', lineHeight: 1.6 }}>
               New here?{' '}
               <Link
                 href="/signup"
-                style={{ color: '#00d4b8', textDecoration: 'underline', textUnderlineOffset: 3 }}
+                style={{ color: '#7BC8A0', textDecoration: 'underline', textUnderlineOffset: 3 }}
               >
                 Use your invite code to sign up
               </Link>

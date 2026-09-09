@@ -67,11 +67,11 @@ export async function POST(req: NextRequest) {
       const name = member.member_name || 'there';
       const html = `
 <div style="font-family:system-ui,-apple-system,sans-serif;max-width:560px;margin:0 auto;color:#1a1a1a">
-  <h2 style="color:#00a890;margin:0 0 12px">Reset your CareCircle password</h2>
+  <h2 style="color:#3D8B5E;margin:0 0 12px">Reset your CareCircle password</h2>
   <p>Hi ${name},</p>
   <p>We received a request to reset your CareCircle password. This link is valid for 30 minutes and can be used once:</p>
   <p>
-    <a href="${link}" style="display:inline-block;padding:10px 18px;background:#00a890;color:#fff;text-decoration:none;border-radius:6px">
+    <a href="${link}" style="display:inline-block;padding:10px 18px;background:#3D8B5E;color:#fff;text-decoration:none;border-radius:6px">
       Choose a new password
     </a>
   </p>

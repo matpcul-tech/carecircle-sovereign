@@ -45,7 +45,7 @@ export default function EmergencyPage({ session }: { session: CCSession }) {
             style={{
               fontFamily: T,
               fontSize: 10,
-              color: '#e8526e',
+              color: '#E05C3A',
               textTransform: 'uppercase',
               letterSpacing: 2,
               fontWeight: 700,
@@ -54,7 +54,7 @@ export default function EmergencyPage({ session }: { session: CCSession }) {
             Emergency Profile
           </span>
         </div>
-        <div style={{ fontSize: 18, fontWeight: 700, color: '#eef2f8', marginTop: 4 }}>
+        <div style={{ fontSize: 18, fontWeight: 700, color: '#F4EDE1', marginTop: 4 }}>
           {session.patient_name || 'Your loved one'}
         </div>
       </div>
@@ -68,7 +68,7 @@ export default function EmergencyPage({ session }: { session: CCSession }) {
             borderRadius: 12,
             padding: '10px 14px',
             fontSize: 11,
-            color: '#e8526e',
+            color: '#E05C3A',
             marginBottom: 12,
           }}
         >
@@ -84,20 +84,20 @@ export default function EmergencyPage({ session }: { session: CCSession }) {
             padding: 14,
             marginBottom: 16,
             fontSize: 12,
-            color: '#eef2f8',
+            color: '#F4EDE1',
             lineHeight: 1.7,
           }}
         >
           <div>
             <strong>{me.member_name}</strong> ({me.relationship})
           </div>
-          <div style={{ color: '#7a9bbf', fontSize: 11 }}>{me.member_email}</div>
+          <div style={{ color: '#A8B8C8', fontSize: 11 }}>{me.member_email}</div>
           {me.member_phone && (
-            <div style={{ color: '#7a9bbf', fontSize: 11 }}>{me.member_phone}</div>
+            <div style={{ color: '#A8B8C8', fontSize: 11 }}>{me.member_phone}</div>
           )}
-          <div style={{ marginTop: 6, fontSize: 11, color: '#7a9bbf' }}>
+          <div style={{ marginTop: 6, fontSize: 11, color: '#A8B8C8' }}>
             Alert preference:{' '}
-            <span style={{ color: me.alert_level === 'critical' ? '#e8526e' : '#00d4b8' }}>
+            <span style={{ color: me.alert_level === 'critical' ? '#E05C3A' : '#7BC8A0' }}>
               {me.alert_level === 'critical' ? 'critical only' : 'all alerts'}
             </span>
           </div>
@@ -114,10 +114,10 @@ export default function EmergencyPage({ session }: { session: CCSession }) {
           textAlign: 'center',
         }}
       >
-        <div style={{ fontSize: 13, fontWeight: 700, color: '#eef2f8', marginBottom: 8 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#F4EDE1', marginBottom: 8 }}>
           Coming soon
         </div>
-        <div style={{ fontSize: 11, color: '#7a9bbf', lineHeight: 1.6 }}>
+        <div style={{ fontSize: 11, color: '#A8B8C8', lineHeight: 1.6 }}>
           Conditions, medications, allergies, and blood type live in the patient&apos;s encrypted
           CareIQ vault. A non-PHI emergency profile mirror is needed before this section can fill.
         </div>

@@ -160,7 +160,7 @@ export default function VaultPage() {
   if (loading) {
     return (
       <div style={PAGE_PAD}>
-        <div style={{ fontSize: 12, color: '#7a9bbf', textAlign: 'center', padding: 32 }}>
+        <div style={{ fontSize: 12, color: '#A8B8C8', textAlign: 'center', padding: 32 }}>
           Loading vault...
         </div>
       </div>
@@ -176,9 +176,9 @@ export default function VaultPage() {
           disabled={uploading}
           style={{
             padding: '6px 12px', borderRadius: 16,
-            border: '1px solid rgba(0,212,184,.4)',
-            background: 'rgba(0,212,184,.1)',
-            color: '#00d4b8', fontSize: 11, fontWeight: 600,
+            border: '1px solid rgba(123,200,160,.4)',
+            background: 'rgba(123,200,160,.1)',
+            color: '#7BC8A0', fontSize: 11, fontWeight: 600,
             cursor: uploading ? 'not-allowed' : 'pointer',
             opacity: uploading ? 0.6 : 1, fontFamily: O,
           }}
@@ -196,23 +196,23 @@ export default function VaultPage() {
       </div>
 
       <div style={{
-        background: 'rgba(0,212,184,.06)', border: '1px solid rgba(0,212,184,.18)',
+        background: 'rgba(123,200,160,.06)', border: '1px solid rgba(123,200,160,.18)',
         borderRadius: 10, padding: '8px 12px', marginBottom: 12,
-        fontFamily: T, fontSize: 9, color: '#00d4b8',
+        fontFamily: T, fontSize: 9, color: '#7BC8A0',
         textTransform: 'uppercase', letterSpacing: '.12em',
       }}>AES-256-GCM encrypted at rest · PDF, JPG, PNG up to 25 MB</div>
 
       {error && (
         <div style={{
           background: 'rgba(232,82,110,.1)', border: '1px solid rgba(232,82,110,.3)',
-          borderRadius: 12, padding: 12, fontSize: 11, color: '#e8526e', marginBottom: 12,
+          borderRadius: 12, padding: 12, fontSize: 11, color: '#E05C3A', marginBottom: 12,
         }}>{error}</div>
       )}
 
       {files.length === 0 ? (
         <div style={{
           background: CARD_BG, border: CARD_BORDER, borderRadius: 12,
-          padding: 16, fontSize: 11, color: '#7a9bbf', textAlign: 'center',
+          padding: 16, fontSize: 11, color: '#A8B8C8', textAlign: 'center',
         }}>No files in the vault yet. Tap upload to add one.</div>
       ) : (
         files.map(f => (
@@ -223,11 +223,11 @@ export default function VaultPage() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 8 }}>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{
-                  fontSize: 13, fontWeight: 600, color: '#eef2f8',
+                  fontSize: 13, fontWeight: 600, color: '#F4EDE1',
                   marginBottom: 3, overflow: 'hidden', textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
                 }}>{f.filename}</div>
-                <div style={{ fontFamily: T, fontSize: 9, color: '#7a9bbf' }}>
+                <div style={{ fontFamily: T, fontSize: 9, color: '#A8B8C8' }}>
                   {fmtDate(f.uploaded_at)}{f.size_bytes != null ? ` · ${fmtSize(f.size_bytes)}` : ''}
                 </div>
               </div>
@@ -237,8 +237,8 @@ export default function VaultPage() {
                   disabled={busyId === f.id}
                   style={{
                     padding: '5px 10px', borderRadius: 8,
-                    border: '1px solid rgba(0,212,184,.3)',
-                    background: 'rgba(0,212,184,.08)', color: '#00d4b8',
+                    border: '1px solid rgba(123,200,160,.3)',
+                    background: 'rgba(123,200,160,.08)', color: '#7BC8A0',
                     fontSize: 10, fontWeight: 600, fontFamily: O,
                     cursor: busyId === f.id ? 'not-allowed' : 'pointer',
                     opacity: busyId === f.id ? 0.6 : 1,
@@ -252,7 +252,7 @@ export default function VaultPage() {
                   style={{
                     padding: '5px 10px', borderRadius: 8,
                     border: '1px solid rgba(232,82,110,.3)',
-                    background: 'rgba(232,82,110,.08)', color: '#e8526e',
+                    background: 'rgba(232,82,110,.08)', color: '#E05C3A',
                     fontSize: 10, fontWeight: 600, fontFamily: O,
                     cursor: busyId === f.id ? 'not-allowed' : 'pointer',
                     opacity: busyId === f.id ? 0.6 : 1,

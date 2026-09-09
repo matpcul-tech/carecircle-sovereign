@@ -228,7 +228,7 @@ async function sendAlertEmail(args: {
 
   const html = `
 <div style="font-family:system-ui,-apple-system,sans-serif;max-width:560px;margin:0 auto;color:#1a1a1a">
-  <h2 style="color:#00a890;margin:0 0 12px">CareCircle Health Alert</h2>
+  <h2 style="color:#3D8B5E;margin:0 0 12px">CareCircle Health Alert</h2>
   <p>Hi ${args.memberName},</p>
   <p>The following metric(s) crossed a threshold and may need attention:</p>
   <ul style="padding-left:18px;margin:12px 0">${items}</ul>

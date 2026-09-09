@@ -10,24 +10,24 @@ const P = "'Playfair Display',serif";
 
 const card: React.CSSProperties = {
   background: 'rgba(255,255,255,.04)',
-  border: '1px solid rgba(0,212,184,.14)',
+  border: '1px solid rgba(123,200,160,.14)',
   borderRadius: 18,
   padding: 24,
 };
 const input: React.CSSProperties = {
   width: '100%', background: 'rgba(255,255,255,.05)',
-  border: '1px solid rgba(0,212,184,.14)', borderRadius: 10,
-  padding: '11px 14px', fontSize: 13, color: '#eef2f8',
+  border: '1px solid rgba(123,200,160,.14)', borderRadius: 10,
+  padding: '11px 14px', fontSize: 13, color: '#F4EDE1',
   fontFamily: O, outline: 'none', marginBottom: 10,
 };
 const label: React.CSSProperties = {
-  fontFamily: T, fontSize: 9, color: '#7a9bbf', textTransform: 'uppercase',
+  fontFamily: T, fontSize: 9, color: '#A8B8C8', textTransform: 'uppercase',
   letterSpacing: '.18em', marginBottom: 6, display: 'block',
 };
 const button: React.CSSProperties = {
   width: '100%', padding: '13px 0', borderRadius: 12, border: 'none',
-  background: 'linear-gradient(135deg,#00d4b8,#00b89e)', color: '#07101f',
-  fontSize: 14, fontWeight: 700, fontFamily: O, boxShadow: '0 0 20px rgba(0,212,184,.3)',
+  background: 'linear-gradient(135deg,#7BC8A0,#3D8B5E)', color: '#0B1829',
+  fontSize: 14, fontWeight: 700, fontFamily: O, boxShadow: '0 0 20px rgba(123,200,160,.3)',
 };
 
 export default function ResetPage() {
@@ -90,19 +90,19 @@ export default function ResetPage() {
   }, [token, next, confirm, busy]);
 
   const shell = (children: React.ReactNode) => (
-    <div style={{ minHeight: '100vh', background: '#07101f', fontFamily: O, color: '#eef2f8', padding: '40px 20px' }}>
+    <div style={{ minHeight: '100vh', background: '#0B1829', fontFamily: O, color: '#F4EDE1', padding: '40px 20px' }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600;700&display=swap');
         *{box-sizing:border-box}
         input::placeholder{color:#516a87}
-        input:focus{border-color:#00d4b8 !important}
+        input:focus{border-color:#7BC8A0 !important}
       `}</style>
       <div style={{ maxWidth: 460, margin: '0 auto' }}>
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 28, textDecoration: 'none' }}>
-          <div style={{ width: 36, height: 36, borderRadius: 10, background: 'linear-gradient(135deg,#00b89e,#8060cc)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 14px rgba(0,212,184,.3)' }}>
+          <div style={{ width: 36, height: 36, borderRadius: 10, background: 'linear-gradient(135deg,#3D8B5E,#8060cc)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 14px rgba(123,200,160,.3)' }}>
             <Heart size={16} color="#fff" fill="#fff" />
           </div>
-          <div style={{ fontFamily: P, fontSize: 18, color: '#eef2f8' }}>CareCircle</div>
+          <div style={{ fontFamily: P, fontSize: 18, color: '#F4EDE1' }}>CareCircle</div>
         </Link>
         {children}
       </div>
@@ -110,12 +110,12 @@ export default function ResetPage() {
   );
 
   const errorBox = error && (
-    <div style={{ marginBottom: 12, padding: '10px 12px', borderRadius: 10, fontSize: 11, background: 'rgba(232,82,110,.1)', border: '1px solid rgba(232,82,110,.3)', color: '#e8526e' }}>
+    <div style={{ marginBottom: 12, padding: '10px 12px', borderRadius: 10, fontSize: 11, background: 'rgba(232,82,110,.1)', border: '1px solid rgba(232,82,110,.3)', color: '#E05C3A' }}>
       {error}
     </div>
   );
 
-  if (!ready) return shell(<div style={{ color: '#7a9bbf' }}>Loading...</div>);
+  if (!ready) return shell(<div style={{ color: '#A8B8C8' }}>Loading...</div>);
 
   // Mode B: token present -> set a new password.
   if (token) {
@@ -153,10 +153,10 @@ export default function ResetPage() {
       <h1 style={{ fontFamily: P, fontSize: 26, fontWeight: 300, marginBottom: 20 }}>Reset your password</h1>
       <div style={card}>
         {sent ? (
-          <div style={{ fontSize: 13, color: '#7a9bbf', lineHeight: 1.7 }}>
+          <div style={{ fontSize: 13, color: '#A8B8C8', lineHeight: 1.7 }}>
             If an account exists for that email, a reset link is on its way. The link is valid for 30 minutes.
             <div style={{ marginTop: 16 }}>
-              <Link href="/login" style={{ color: '#00d4b8', textDecoration: 'underline', textUnderlineOffset: 3 }}>Back to sign in</Link>
+              <Link href="/login" style={{ color: '#7BC8A0', textDecoration: 'underline', textUnderlineOffset: 3 }}>Back to sign in</Link>
             </div>
           </div>
         ) : (
@@ -167,8 +167,8 @@ export default function ResetPage() {
             <button onClick={requestLink} disabled={busy} style={{ ...button, opacity: busy ? 0.6 : 1, cursor: busy ? 'not-allowed' : 'pointer' }}>
               {busy ? 'Sending...' : 'Send reset link'}
             </button>
-            <p style={{ marginTop: 18, fontSize: 11, color: '#7a9bbf', textAlign: 'center' }}>
-              <Link href="/login" style={{ color: '#00d4b8', textDecoration: 'underline', textUnderlineOffset: 3 }}>Back to sign in</Link>
+            <p style={{ marginTop: 18, fontSize: 11, color: '#A8B8C8', textAlign: 'center' }}>
+              <Link href="/login" style={{ color: '#7BC8A0', textDecoration: 'underline', textUnderlineOffset: 3 }}>Back to sign in</Link>
             </p>
           </>
         )}

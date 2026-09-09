@@ -180,7 +180,7 @@ function spo2Status(v: number | null): 'ok' | 'warn' | 'alert' {
   return 'ok';
 }
 const statusColor = (s: 'ok' | 'warn' | 'alert') =>
-  s === 'alert' ? '#e8526e' : s === 'warn' ? '#d4a843' : '#00d4b8';
+  s === 'alert' ? '#E05C3A' : s === 'warn' ? '#C07941' : '#7BC8A0';
 
 export default function FamilyPage() {
   const router = useRouter();
@@ -307,7 +307,7 @@ export default function FamilyPage() {
   if (loading) {
     return (
       <div style={PAGE_PAD}>
-        <div style={{ fontSize: 12, color: '#7a9bbf', textAlign: 'center', padding: 32 }}>
+        <div style={{ fontSize: 12, color: '#A8B8C8', textAlign: 'center', padding: 32 }}>
           Loading your Care Circle...
         </div>
       </div>
@@ -325,7 +325,7 @@ export default function FamilyPage() {
             borderRadius: 12,
             padding: 14,
             fontSize: 11,
-            color: '#e8526e',
+            color: '#E05C3A',
             marginBottom: 12,
           }}
         >
@@ -337,10 +337,10 @@ export default function FamilyPage() {
             width: '100%',
             padding: '10px 0',
             borderRadius: 10,
-            border: '1px solid rgba(0,212,184,.14)',
+            border: '1px solid rgba(123,200,160,.14)',
             cursor: 'pointer',
             background: 'rgba(255,255,255,.06)',
-            color: '#eef2f8',
+            color: '#F4EDE1',
             fontSize: 12,
             fontWeight: 700,
             fontFamily: O,
@@ -449,7 +449,7 @@ export default function FamilyPage() {
                 border: '1px solid #1e3a5f',
                 borderRadius: 8,
                 padding: '10px 12px',
-                color: '#eef2f8',
+                color: '#F4EDE1',
                 fontSize: 18,
                 fontFamily: "'Playfair Display',serif",
                 outline: 'none',
@@ -465,8 +465,8 @@ export default function FamilyPage() {
                   padding: '8px 0',
                   borderRadius: 8,
                   border: 'none',
-                  background: 'linear-gradient(135deg,#00d4b8,#00b89e)',
-                  color: '#07101f',
+                  background: 'linear-gradient(135deg,#7BC8A0,#3D8B5E)',
+                  color: '#0B1829',
                   fontSize: 12,
                   fontWeight: 700,
                   fontFamily: O,
@@ -486,9 +486,9 @@ export default function FamilyPage() {
                   flex: 1,
                   padding: '8px 0',
                   borderRadius: 8,
-                  border: '1px solid rgba(0,212,184,.2)',
+                  border: '1px solid rgba(123,200,160,.2)',
                   background: 'transparent',
-                  color: '#7a9bbf',
+                  color: '#A8B8C8',
                   fontSize: 12,
                   fontWeight: 600,
                   fontFamily: O,
@@ -503,7 +503,7 @@ export default function FamilyPage() {
                 style={{
                   marginTop: 8,
                   fontSize: 11,
-                  color: '#e8526e',
+                  color: '#E05C3A',
                 }}
               >
                 {nicknameError}
@@ -514,7 +514,7 @@ export default function FamilyPage() {
                 marginTop: 8,
                 fontFamily: T,
                 fontSize: 9,
-                color: '#7a9bbf',
+                color: '#A8B8C8',
                 lineHeight: 1.5,
               }}
             >
@@ -535,7 +535,7 @@ export default function FamilyPage() {
               style={{
                 fontFamily: "'Playfair Display',serif",
                 fontSize: 22,
-                color: '#eef2f8',
+                color: '#F4EDE1',
               }}
             >
               {displayName}
@@ -552,7 +552,7 @@ export default function FamilyPage() {
                 background: 'transparent',
                 border: 'none',
                 cursor: 'pointer',
-                color: '#7a9bbf',
+                color: '#A8B8C8',
                 padding: 4,
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -575,7 +575,7 @@ export default function FamilyPage() {
                   style={{
                     fontFamily: T,
                     fontSize: 9,
-                    color: '#7a9bbf',
+                    color: '#A8B8C8',
                     letterSpacing: '.04em',
                   }}
                 >
@@ -600,7 +600,7 @@ export default function FamilyPage() {
               style={{
                 fontFamily: T,
                 fontSize: 9,
-                color: '#7a9bbf',
+                color: '#A8B8C8',
                 textTransform: 'uppercase',
                 letterSpacing: '.1em',
               }}
@@ -610,7 +610,7 @@ export default function FamilyPage() {
             <div style={{ fontSize: 12, fontWeight: 600, marginTop: 3 }}>
               {myRow.member_name}
             </div>
-            <div style={{ fontSize: 11, color: '#7a9bbf' }}>{myRow.relationship}</div>
+            <div style={{ fontSize: 11, color: '#A8B8C8' }}>{myRow.relationship}</div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'flex-end' }}>
             <div
@@ -626,9 +626,9 @@ export default function FamilyPage() {
                 background:
                   myRow.alert_level === 'critical'
                     ? 'rgba(232,82,110,.12)'
-                    : 'rgba(0,212,184,.1)',
-                color: myRow.alert_level === 'critical' ? '#e8526e' : '#00d4b8',
-                border: `1px solid ${myRow.alert_level === 'critical' ? 'rgba(232,82,110,.3)' : 'rgba(0,212,184,.2)'}`,
+                    : 'rgba(123,200,160,.1)',
+                color: myRow.alert_level === 'critical' ? '#E05C3A' : '#7BC8A0',
+                border: `1px solid ${myRow.alert_level === 'critical' ? 'rgba(232,82,110,.3)' : 'rgba(123,200,160,.2)'}`,
                 textTransform: 'uppercase',
                 letterSpacing: '.1em',
               }}
@@ -690,7 +690,7 @@ export default function FamilyPage() {
                   style={{
                     fontFamily: T,
                     fontSize: 9,
-                    color: '#7a9bbf',
+                    color: '#A8B8C8',
                     textTransform: 'uppercase',
                     letterSpacing: '.12em',
                     marginBottom: 4,
@@ -701,7 +701,7 @@ export default function FamilyPage() {
                 <div style={{ fontFamily: T, fontSize: 17, fontWeight: 600, color: statusColor(v.status) }}>
                   {v.val}
                 </div>
-                <div style={{ fontSize: 9, color: '#7a9bbf', marginTop: 2 }}>{v.unit}</div>
+                <div style={{ fontSize: 9, color: '#A8B8C8', marginTop: 2 }}>{v.unit}</div>
                 <div
                   style={{
                     marginTop: 6,
@@ -711,9 +711,9 @@ export default function FamilyPage() {
                     fontSize: 7.5,
                     padding: '2px 5px',
                     borderRadius: 5,
-                    background: 'rgba(0,212,184,.12)',
-                    color: '#00d4b8',
-                    border: '1px solid rgba(0,212,184,.28)',
+                    background: 'rgba(123,200,160,.12)',
+                    color: '#7BC8A0',
+                    border: '1px solid rgba(123,200,160,.28)',
                     letterSpacing: '.08em',
                     textTransform: 'uppercase',
                     whiteSpace: 'nowrap',
@@ -726,7 +726,7 @@ export default function FamilyPage() {
             ))}
           </div>
           {vitals?.updated_at && (
-            <div style={{ fontFamily: T, fontSize: 9, color: '#7a9bbf', marginBottom: 12 }}>
+            <div style={{ fontFamily: T, fontSize: 9, color: '#A8B8C8', marginBottom: 12 }}>
               Updated {fmtTime(vitals.updated_at)} · risk score {vitals.risk_score}
             </div>
           )}
@@ -739,7 +739,7 @@ export default function FamilyPage() {
             borderRadius: 12,
             padding: 14,
             fontSize: 11,
-            color: '#7a9bbf',
+            color: '#A8B8C8',
             textAlign: 'center',
             marginBottom: 12,
             lineHeight: 1.55,
@@ -760,15 +760,15 @@ export default function FamilyPage() {
             background:
               lastAlert.severity === 'critical'
                 ? 'rgba(232,82,110,.08)'
-                : 'rgba(212,168,67,.08)',
-            border: `1px solid ${lastAlert.severity === 'critical' ? 'rgba(232,82,110,.3)' : 'rgba(212,168,67,.25)'}`,
+                : 'rgba(192,121,65,.08)',
+            border: `1px solid ${lastAlert.severity === 'critical' ? 'rgba(232,82,110,.3)' : 'rgba(192,121,65,.25)'}`,
             borderRadius: 12,
             padding: 14,
             marginBottom: 12,
           }}
         >
           <div
-            style={{ fontFamily: T, fontSize: 9, color: '#7a9bbf', marginBottom: 4 }}
+            style={{ fontFamily: T, fontSize: 9, color: '#A8B8C8', marginBottom: 4 }}
           >
             {fmtTime(lastAlert.fired_at)}
           </div>
@@ -777,12 +777,12 @@ export default function FamilyPage() {
               fontSize: 13,
               fontWeight: 700,
               marginBottom: 4,
-              color: lastAlert.severity === 'critical' ? '#e8526e' : '#d4a843',
+              color: lastAlert.severity === 'critical' ? '#E05C3A' : '#C07941',
             }}
           >
             {lastAlert.metric} · {lastAlert.severity.toUpperCase()}
           </div>
-          <div style={{ fontSize: 11, color: '#eef2f8', lineHeight: 1.55 }}>
+          <div style={{ fontSize: 11, color: '#F4EDE1', lineHeight: 1.55 }}>
             {lastAlert.recommendation}
           </div>
         </div>
@@ -818,7 +818,7 @@ export default function FamilyPage() {
               }}
             >
               <div
-                style={{ fontFamily: T, fontSize: 9, color: '#7a9bbf', marginBottom: 3 }}
+                style={{ fontFamily: T, fontSize: 9, color: '#A8B8C8', marginBottom: 3 }}
               >
                 {fmtTime(a.fired_at)}
               </div>
@@ -827,12 +827,12 @@ export default function FamilyPage() {
                   fontSize: 12,
                   fontWeight: 600,
                   marginBottom: 2,
-                  color: a.severity === 'critical' ? '#e8526e' : '#d4a843',
+                  color: a.severity === 'critical' ? '#E05C3A' : '#C07941',
                 }}
               >
                 {a.metric} · {a.severity.toUpperCase()}
               </div>
-              <div style={{ fontSize: 11, color: '#7a9bbf', lineHeight: 1.55 }}>
+              <div style={{ fontSize: 11, color: '#A8B8C8', lineHeight: 1.55 }}>
                 {a.recommendation}
               </div>
             </div>

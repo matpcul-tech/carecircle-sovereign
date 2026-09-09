@@ -87,12 +87,12 @@ async function sendInviteEmail(args: {
 
   const html = `
 <div style="font-family:system-ui,-apple-system,sans-serif;max-width:560px;margin:0 auto;color:#1a1a1a">
-  <h2 style="color:#00a890;margin:0 0 12px">Welcome to the Care Circle</h2>
+  <h2 style="color:#3D8B5E;margin:0 0 12px">Welcome to the Care Circle</h2>
   <p>Hi ${args.memberName},</p>
   <p>You've been added to <strong>${args.patientName}</strong>'s CareCircle as their <strong>${args.relationship}</strong>.</p>
   <p>You'll receive <strong>${cadence}</strong>.</p>
   <p>
-    <a href="${APP_URL}" style="display:inline-block;padding:10px 18px;background:#00a890;color:#fff;text-decoration:none;border-radius:6px">
+    <a href="${APP_URL}" style="display:inline-block;padding:10px 18px;background:#3D8B5E;color:#fff;text-decoration:none;border-radius:6px">
       Open CareCircle
     </a>
   </p>

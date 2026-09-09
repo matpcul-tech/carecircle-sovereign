@@ -22,8 +22,8 @@ export default function AppPage() {
     <div
       style={{
         minHeight: '100vh',
-        background: '#07101f',
-        color: '#eef2f8',
+        background: '#0B1829',
+        color: '#F4EDE1',
         fontFamily: O,
       }}
     >
@@ -38,16 +38,16 @@ export default function AppPage() {
           position: 'sticky',
           top: 0,
           zIndex: 10,
-          background: 'rgba(7,16,31,.97)',
+          background: 'rgba(11,24,41,.97)',
           backdropFilter: 'blur(20px)',
-          borderBottom: '1px solid rgba(0,212,184,.14)',
+          borderBottom: '1px solid rgba(123,200,160,.14)',
         }}
       >
         <div
           style={{
             height: 2,
             background:
-              'linear-gradient(90deg,transparent,#00d4b8,#8060cc,#00d4b8,transparent)',
+              'linear-gradient(90deg,transparent,#7BC8A0,#8060cc,#7BC8A0,transparent)',
           }}
         />
 
@@ -77,11 +77,11 @@ export default function AppPage() {
                 width: 34,
                 height: 34,
                 borderRadius: 10,
-                background: 'linear-gradient(135deg,#00b89e,#8060cc)',
+                background: 'linear-gradient(135deg,#3D8B5E,#8060cc)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 0 14px rgba(0,212,184,.3)',
+                boxShadow: '0 0 14px rgba(123,200,160,.3)',
                 flexShrink: 0,
               }}
             >
@@ -89,7 +89,7 @@ export default function AppPage() {
             </div>
             <div style={{ minWidth: 0 }}>
               <div
-                style={{ fontFamily: P, fontSize: 15, color: '#eef2f8', lineHeight: 1.1 }}
+                style={{ fontFamily: P, fontSize: 15, color: '#F4EDE1', lineHeight: 1.1 }}
               >
                 CareCircle
               </div>
@@ -97,7 +97,7 @@ export default function AppPage() {
                 style={{
                   fontFamily: T,
                   fontSize: 8,
-                  color: '#00d4b8',
+                  color: '#7BC8A0',
                   letterSpacing: '.18em',
                   textTransform: 'uppercase',
                   marginTop: 2,
@@ -125,9 +125,9 @@ export default function AppPage() {
                 gap: 5,
                 padding: '5px 11px',
                 borderRadius: 9,
-                border: '1px solid rgba(0,212,184,.3)',
-                background: 'rgba(0,212,184,.1)',
-                color: '#00d4b8',
+                border: '1px solid rgba(123,200,160,.3)',
+                background: 'rgba(123,200,160,.1)',
+                color: '#7BC8A0',
                 fontFamily: O,
                 fontSize: 11,
                 fontWeight: 600,
@@ -174,10 +174,10 @@ export default function AppPage() {
               width: '100%',
               padding: '10px 0',
               borderRadius: 10,
-              border: '1px solid rgba(0,212,184,.14)',
+              border: '1px solid rgba(123,200,160,.14)',
               cursor: 'pointer',
               background: 'rgba(255,255,255,.04)',
-              color: '#7a9bbf',
+              color: '#A8B8C8',
               fontSize: 11,
               fontWeight: 600,
               fontFamily: O,

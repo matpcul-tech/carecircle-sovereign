@@ -34,7 +34,7 @@ export default function ShieldPage({ logs }: { logs: ShieldLog[] }) {
             Active
           </span>
         </div>
-        <div style={{ fontSize: 11, color: '#7a9bbf', lineHeight: 1.65 }}>
+        <div style={{ fontSize: 11, color: '#A8B8C8', lineHeight: 1.65 }}>
           Before an AI query reaches the external model, the server redacts common identifier
           patterns — Social Security numbers, phone numbers, dates of birth, medical record numbers,
           and dates. This reduces exposure but is not full de-identification: names and clinical
@@ -52,7 +52,7 @@ export default function ShieldPage({ logs }: { logs: ShieldLog[] }) {
             padding: 24,
             textAlign: 'center',
             fontSize: 12,
-            color: '#7a9bbf',
+            color: '#A8B8C8',
           }}
         >
           No queries yet. Use the AI tab to see identifier redaction in real time.
@@ -70,7 +70,7 @@ export default function ShieldPage({ logs }: { logs: ShieldLog[] }) {
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-              <span style={{ fontFamily: T, fontSize: 9, color: '#7a9bbf' }}>{fmtTime(log.ts)}</span>
+              <span style={{ fontFamily: T, fontSize: 9, color: '#A8B8C8' }}>{fmtTime(log.ts)}</span>
               <span
                 style={{
                   fontFamily: T,
@@ -81,13 +81,13 @@ export default function ShieldPage({ logs }: { logs: ShieldLog[] }) {
                     log.risk === 'CRITICAL' || log.risk === 'HIGH'
                       ? 'rgba(232,82,110,.12)'
                       : log.risk === 'MEDIUM'
-                      ? 'rgba(212,168,67,.12)'
+                      ? 'rgba(192,121,65,.12)'
                       : 'rgba(74,222,128,.12)',
                   color:
                     log.risk === 'CRITICAL' || log.risk === 'HIGH'
-                      ? '#e8526e'
+                      ? '#E05C3A'
                       : log.risk === 'MEDIUM'
-                      ? '#d4a843'
+                      ? '#C07941'
                       : '#4ade80',
                   border: '1px solid rgba(255,255,255,.08)',
                 }}
@@ -95,7 +95,7 @@ export default function ShieldPage({ logs }: { logs: ShieldLog[] }) {
                 {log.risk}
               </span>
             </div>
-            <div style={{ fontSize: 11, color: '#7a9bbf' }}>
+            <div style={{ fontSize: 11, color: '#A8B8C8' }}>
               {log.action} on query (first 50 chars hashed): {log.q}
             </div>
           </div>

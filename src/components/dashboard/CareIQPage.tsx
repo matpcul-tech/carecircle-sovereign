@@ -70,12 +70,12 @@ interface ShieldPayload {
   sex: Sex;
 }
 
-const OK = '#00d4b8';
-const WARN = '#d4a843';
-const ALERT = '#e8526e';
+const OK = '#7BC8A0';
+const WARN = '#C07941';
+const ALERT = '#E05C3A';
 const PURPLE = '#8060cc';
 const GREEN = '#4ade80';
-const MUTED = '#7a9bbf';
+const MUTED = '#A8B8C8';
 
 function statusColor(s: BiomarkerStatus): string {
   if (s === 'ok') return OK;
@@ -257,8 +257,8 @@ function zoneColorAt(
 
 function zoneCss(c: 'red' | 'yellow' | 'green' | 'gray'): string {
   if (c === 'red') return 'rgba(232,82,110,.32)';
-  if (c === 'yellow') return 'rgba(212,168,67,.32)';
-  if (c === 'green') return 'rgba(0,212,184,.32)';
+  if (c === 'yellow') return 'rgba(192,121,65,.32)';
+  if (c === 'green') return 'rgba(123,200,160,.32)';
   return 'rgba(255,255,255,.06)';
 }
 
@@ -338,9 +338,9 @@ function ShieldBadge({ decryptedAt }: { decryptedAt: string }) {
         fontSize: 7.5,
         padding: '2px 5px',
         borderRadius: 5,
-        background: 'rgba(0,212,184,.12)',
+        background: 'rgba(123,200,160,.12)',
         color: OK,
-        border: '1px solid rgba(0,212,184,.28)',
+        border: '1px solid rgba(123,200,160,.28)',
         letterSpacing: '.08em',
         textTransform: 'uppercase',
         whiteSpace: 'nowrap',
@@ -422,7 +422,7 @@ function RangeBar({ b }: { b: BiomarkerResponse }) {
             top: -3,
             bottom: -3,
             width: 2,
-            background: '#eef2f8',
+            background: '#F4EDE1',
             borderRadius: 1,
             transform: 'translateX(-1px)',
             boxShadow: '0 0 6px rgba(238,242,248,.6)',
@@ -719,8 +719,8 @@ export default function CareIQPage({ session }: { session: CCSession }) {
       <div
         style={{
           background:
-            'linear-gradient(135deg, rgba(0,212,184,.10), rgba(128,96,204,.06))',
-          border: '1px solid rgba(0,212,184,.2)',
+            'linear-gradient(135deg, rgba(123,200,160,.10), rgba(128,96,204,.06))',
+          border: '1px solid rgba(123,200,160,.2)',
           borderRadius: 16,
           padding: 16,
           marginBottom: 14,
@@ -735,7 +735,7 @@ export default function CareIQPage({ session }: { session: CCSession }) {
             style={{
               fontFamily: "'Playfair Display',serif",
               fontSize: 18,
-              color: '#eef2f8',
+              color: '#F4EDE1',
               marginBottom: 4,
             }}
           >
@@ -848,7 +848,7 @@ export default function CareIQPage({ session }: { session: CCSession }) {
             >
               BP
             </div>
-            <div style={{ fontFamily: T, fontSize: 17, fontWeight: 600, color: '#eef2f8' }}>
+            <div style={{ fontFamily: T, fontSize: 17, fontWeight: 600, color: '#F4EDE1' }}>
               {payload!.bp_systolic !== null && payload!.bp_diastolic !== null
                 ? `${payload!.bp_systolic}/${payload!.bp_diastolic}`
                 : 'Not yet entered'}
@@ -934,7 +934,7 @@ export default function CareIQPage({ session }: { session: CCSession }) {
               background:
                 a.severity === 'critical'
                   ? 'rgba(232,82,110,.06)'
-                  : 'rgba(212,168,67,.06)',
+                  : 'rgba(192,121,65,.06)',
               borderLeft: `3px solid ${a.severity === 'critical' ? ALERT : WARN}`,
               border: CARD_BORDER,
               borderRadius: 12,
@@ -950,7 +950,7 @@ export default function CareIQPage({ session }: { session: CCSession }) {
                 marginBottom: 4,
               }}
             >
-              <span style={{ fontSize: 13, fontWeight: 600, color: '#eef2f8' }}>{a.metric}</span>
+              <span style={{ fontSize: 13, fontWeight: 600, color: '#F4EDE1' }}>{a.metric}</span>
               <span
                 style={{
                   fontFamily: T,
@@ -958,10 +958,10 @@ export default function CareIQPage({ session }: { session: CCSession }) {
                   padding: '2px 8px',
                   borderRadius: 8,
                   background:
-                    a.severity === 'critical' ? 'rgba(232,82,110,.15)' : 'rgba(212,168,67,.15)',
+                    a.severity === 'critical' ? 'rgba(232,82,110,.15)' : 'rgba(192,121,65,.15)',
                   color: a.severity === 'critical' ? ALERT : WARN,
                   border: `1px solid ${
-                    a.severity === 'critical' ? 'rgba(232,82,110,.3)' : 'rgba(212,168,67,.3)'
+                    a.severity === 'critical' ? 'rgba(232,82,110,.3)' : 'rgba(192,121,65,.3)'
                   }`,
                   textTransform: 'uppercase',
                   letterSpacing: '.1em',
@@ -973,7 +973,7 @@ export default function CareIQPage({ session }: { session: CCSession }) {
             <div style={{ fontFamily: T, fontSize: 9, color: MUTED, marginBottom: 4 }}>
               {fmtTime(a.fired_at)} · sent to {a.delivery_count} member{a.delivery_count === 1 ? '' : 's'}
             </div>
-            <div style={{ fontSize: 11, color: '#eef2f8', lineHeight: 1.6 }}>{a.recommendation}</div>
+            <div style={{ fontSize: 11, color: '#F4EDE1', lineHeight: 1.6 }}>{a.recommendation}</div>
           </div>
         ))}
     </div>

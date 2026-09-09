@@ -38,7 +38,7 @@ const RELATIONSHIPS = [
 
 const card: React.CSSProperties = {
   background: 'rgba(255,255,255,.04)',
-  border: '1px solid rgba(0,212,184,.14)',
+  border: '1px solid rgba(123,200,160,.14)',
   borderRadius: 18,
   padding: 24,
 };
@@ -46,11 +46,11 @@ const card: React.CSSProperties = {
 const input: React.CSSProperties = {
   width: '100%',
   background: 'rgba(255,255,255,.05)',
-  border: '1px solid rgba(0,212,184,.14)',
+  border: '1px solid rgba(123,200,160,.14)',
   borderRadius: 10,
   padding: '11px 14px',
   fontSize: 13,
-  color: '#eef2f8',
+  color: '#F4EDE1',
   fontFamily: O,
   outline: 'none',
   marginBottom: 10,
@@ -59,7 +59,7 @@ const input: React.CSSProperties = {
 const label: React.CSSProperties = {
   fontFamily: T,
   fontSize: 9,
-  color: '#7a9bbf',
+  color: '#A8B8C8',
   textTransform: 'uppercase',
   letterSpacing: '.18em',
   marginBottom: 6,
@@ -167,9 +167,9 @@ function SignupInner() {
     <div
       style={{
         minHeight: '100vh',
-        background: '#07101f',
+        background: '#0B1829',
         fontFamily: O,
-        color: '#eef2f8',
+        color: '#F4EDE1',
         padding: '40px 20px',
       }}
     >
@@ -177,7 +177,7 @@ function SignupInner() {
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600;700&display=swap');
         *{box-sizing:border-box}
         input::placeholder{color:#516a87}
-        input:focus,select:focus{border-color:#00d4b8 !important}
+        input:focus,select:focus{border-color:#7BC8A0 !important}
       `}</style>
 
       <div style={{ maxWidth: 460, margin: '0 auto' }}>
@@ -197,26 +197,26 @@ function SignupInner() {
               width: 36,
               height: 36,
               borderRadius: 10,
-              background: 'linear-gradient(135deg,#00b89e,#8060cc)',
+              background: 'linear-gradient(135deg,#3D8B5E,#8060cc)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 0 14px rgba(0,212,184,.3)',
+              boxShadow: '0 0 14px rgba(123,200,160,.3)',
             }}
           >
             <Heart size={16} color="#fff" fill="#fff" />
           </div>
-          <div style={{ fontFamily: P, fontSize: 18, color: '#eef2f8' }}>
+          <div style={{ fontFamily: P, fontSize: 18, color: '#F4EDE1' }}>
             CareCircle
           </div>
         </Link>
 
-        <div style={{ fontFamily: T, fontSize: 10, color: '#00d4b8', textTransform: 'uppercase', letterSpacing: '.18em', marginBottom: 8 }}>
+        <div style={{ fontFamily: T, fontSize: 10, color: '#7BC8A0', textTransform: 'uppercase', letterSpacing: '.18em', marginBottom: 8 }}>
           Care Circle Signup
         </div>
         <h1 style={{ fontFamily: P, fontSize: 28, fontWeight: 300, lineHeight: 1.2, marginBottom: 22 }}>
           {invite?.patient_name
-            ? <>Join <em style={{ fontStyle: 'italic', color: '#00d4b8' }}>{invite.patient_name}</em>&apos;s Care Circle</>
+            ? <>Join <em style={{ fontStyle: 'italic', color: '#7BC8A0' }}>{invite.patient_name}</em>&apos;s Care Circle</>
             : <>Enter your invite code</>}
         </h1>
 
@@ -242,10 +242,10 @@ function SignupInner() {
           />
 
           {validating && (
-            <div style={{ marginTop: 10, fontSize: 11, color: '#7a9bbf' }}>Validating…</div>
+            <div style={{ marginTop: 10, fontSize: 11, color: '#A8B8C8' }}>Validating…</div>
           )}
           {validateErr && (
-            <div style={{ marginTop: 10, padding: '8px 10px', borderRadius: 8, fontSize: 11, background: 'rgba(232,82,110,.1)', border: '1px solid rgba(232,82,110,.3)', color: '#e8526e' }}>
+            <div style={{ marginTop: 10, padding: '8px 10px', borderRadius: 8, fontSize: 11, background: 'rgba(232,82,110,.1)', border: '1px solid rgba(232,82,110,.3)', color: '#E05C3A' }}>
               {validateErr}
             </div>
           )}
@@ -289,9 +289,9 @@ function SignupInner() {
                     flex: 1,
                     padding: '10px 0',
                     borderRadius: 10,
-                    border: alertLevel === lvl ? '1px solid #00d4b8' : '1px solid rgba(0,212,184,.14)',
-                    background: alertLevel === lvl ? 'rgba(0,212,184,.12)' : 'rgba(255,255,255,.04)',
-                    color: alertLevel === lvl ? '#00d4b8' : '#7a9bbf',
+                    border: alertLevel === lvl ? '1px solid #7BC8A0' : '1px solid rgba(123,200,160,.14)',
+                    background: alertLevel === lvl ? 'rgba(123,200,160,.12)' : 'rgba(255,255,255,.04)',
+                    color: alertLevel === lvl ? '#7BC8A0' : '#A8B8C8',
                     fontSize: 11,
                     fontWeight: 700,
                     cursor: 'pointer',
@@ -306,7 +306,7 @@ function SignupInner() {
             </div>
 
             {submitErr && (
-              <div style={{ marginBottom: 12, padding: '10px 12px', borderRadius: 10, fontSize: 11, background: 'rgba(232,82,110,.1)', border: '1px solid rgba(232,82,110,.3)', color: '#e8526e' }}>
+              <div style={{ marginBottom: 12, padding: '10px 12px', borderRadius: 10, fontSize: 11, background: 'rgba(232,82,110,.1)', border: '1px solid rgba(232,82,110,.3)', color: '#E05C3A' }}>
                 {submitErr}
               </div>
             )}
@@ -320,30 +320,30 @@ function SignupInner() {
                 borderRadius: 12,
                 border: 'none',
                 cursor: 'pointer',
-                background: 'linear-gradient(135deg,#00d4b8,#00b89e)',
-                color: '#07101f',
+                background: 'linear-gradient(135deg,#7BC8A0,#3D8B5E)',
+                color: '#0B1829',
                 fontSize: 14,
                 fontWeight: 700,
                 fontFamily: O,
                 opacity: submitting ? 0.6 : 1,
-                boxShadow: '0 0 20px rgba(0,212,184,.3)',
+                boxShadow: '0 0 20px rgba(123,200,160,.3)',
               }}
             >
               {submitting ? 'Creating account…' : 'Join the Care Circle'}
             </button>
 
-            <p style={{ marginTop: 14, fontSize: 11, color: '#7a9bbf', lineHeight: 1.6 }}>
+            <p style={{ marginTop: 14, fontSize: 11, color: '#A8B8C8', lineHeight: 1.6 }}>
               By joining, you&apos;ll receive {alertLevel === 'critical' ? 'critical-only' : 'all'} health alerts about {invite.patient_name || 'your loved one'}. Alerts name which metric crossed a threshold and what to do — not raw lab values. Sign in for full details.
             </p>
           </div>
         )}
 
         {/* Login link for returning family members */}
-        <p style={{ marginTop: 18, fontSize: 11, color: '#7a9bbf', textAlign: 'center', lineHeight: 1.6 }}>
+        <p style={{ marginTop: 18, fontSize: 11, color: '#A8B8C8', textAlign: 'center', lineHeight: 1.6 }}>
           Already have an account?{' '}
           <Link
             href="/login"
-            style={{ color: '#00d4b8', textDecoration: 'underline', textUnderlineOffset: 3 }}
+            style={{ color: '#7BC8A0', textDecoration: 'underline', textUnderlineOffset: 3 }}
           >
             Log in
           </Link>
@@ -356,7 +356,7 @@ function SignupInner() {
 export default function SignupPage() {
   return (
     <Suspense fallback={
-      <div style={{ minHeight: '100vh', background: '#07101f', color: '#7a9bbf', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: O }}>
+      <div style={{ minHeight: '100vh', background: '#0B1829', color: '#A8B8C8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: O }}>
         Loading…
       </div>
     }>

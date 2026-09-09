@@ -22,12 +22,15 @@ export type AuditAction =
   | 'download'
   | 'upload'
   | 'ai_query'
-  | 'alert_sent';
+  | 'alert_sent'
+  | 'access_request_approved'
+  | 'access_request_denied';
 
 export type AuditResource =
   | 'vault_file'
   | 'ai_chat'
-  | 'alert';
+  | 'alert'
+  | 'care_circle_access_request';
 
 export interface AuditEntry {
   patientId: string;

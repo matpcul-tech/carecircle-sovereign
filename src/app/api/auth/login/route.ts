@@ -36,7 +36,37 @@ async function lookupCircle(userId: string): Promise<CircleRow | null> {
   );
   if (!r.ok) return null;
   const rows = (await r.json()) as CircleRow[];
-  return rows[0] || null;
+  if (rows[0]) return rows[0];
+
+  // No member row. In the Sovereign Edition this app runs on the Chikasha
+  // Health OS Supabase project, so the signed-in account may be the PATIENT
+  // themselves (care_circle.patient_id is their auth uid). A patient signs
+  // in to their own circle to approve family access requests and to see
+  // what the family sees. Accounts created by this app for family members
+  // carry user_metadata.role = 'care_circle_member' and are never treated
+  // as a patient, so a family member with no approved circle still lands on
+  // the request-access status page rather than an empty circle of their own.
+  return lookupPatientSelf(userId);
+}
+
+async function lookupPatientSelf(userId: string): Promise<CircleRow | null> {
+  const r = await fetch(`${SUPABASE_URL}/auth/v1/admin/users/${encodeURIComponent(userId)}`, {
+    headers: { apikey: SERVICE_ROLE, Authorization: `Bearer ${SERVICE_ROLE}` },
+    cache: 'no-store',
+  });
+  if (!r.ok) return null;
+  const data = (await r.json().catch(() => null)) as {
+    id?: string;
+    email?: string;
+    user_metadata?: Record<string, unknown>;
+  } | null;
+  if (!data || data.id !== userId) return null;
+  const meta = data.user_metadata || {};
+  if (meta.role === 'care_circle_member') return null;
+  const full = typeof meta.full_name === 'string' ? meta.full_name.trim() : '';
+  const name = typeof meta.name === 'string' ? meta.name.trim() : '';
+  const local = typeof data.email === 'string' && data.email.includes('@') ? data.email.split('@')[0].trim() : '';
+  return { patient_id: userId, patient_name: full || name || local || null };
 }
 
 /**

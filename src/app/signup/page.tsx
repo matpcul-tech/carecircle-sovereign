@@ -339,6 +339,31 @@ function SignupInner() {
           </div>
         )}
 
+        {!invite && (
+          <div style={{ ...card, marginBottom: 16, borderColor: 'rgba(192,121,65,.3)' }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#F4EDE1', marginBottom: 6 }}>No invite code?</div>
+            <p style={{ fontSize: 12, color: '#A8B8C8', lineHeight: 1.6, marginBottom: 12 }}>
+              You can ask your elder for access directly. They approve it and decide what you can see.
+            </p>
+            <Link
+              href="/request-access"
+              style={{
+                display: 'inline-block',
+                padding: '10px 18px',
+                borderRadius: 10,
+                background: 'linear-gradient(135deg,#C07941,#8B3A2A)',
+                color: '#F4EDE1',
+                fontSize: 12,
+                fontWeight: 700,
+                textDecoration: 'none',
+                fontFamily: O,
+              }}
+            >
+              Request access
+            </Link>
+          </div>
+        )}
+
         {/* Login link for returning family members */}
         <p style={{ marginTop: 18, fontSize: 11, color: '#A8B8C8', textAlign: 'center', lineHeight: 1.6 }}>
           Already have an account?{' '}

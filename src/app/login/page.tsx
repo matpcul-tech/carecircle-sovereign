@@ -145,10 +145,20 @@ export default function LoginPage() {
       circle: CareCircleRow | null,
     ) => {
       if (!circle) {
-        setError(
-          'You are signed in, but no Care Circle is linked to this email. ' +
-            'Ask the patient to send you an invite link, then open that link to join.',
+        // Signed in, but not in any circle yet. Park the session as
+        // cc-pending and send them to the access-request status page, where
+        // they can ask their elder for access or watch a request they
+        // already made.
+        window.localStorage.setItem(
+          'cc-pending',
+          JSON.stringify({
+            access_token: s.access_token,
+            refresh_token: s.refresh_token,
+            expires_at: s.expires_at,
+            user_id: s.user_id,
+          }),
         );
+        router.replace('/request-access?status=1');
         return;
       }
       const session: CCSession = {

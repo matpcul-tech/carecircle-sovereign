@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { T, O, PAGE_PAD, SECTION_LABEL, CARD_BG, CARD_BORDER } from './ui';
 import MfaCard from './MfaCard';
 import ChangePasswordCard from './ChangePasswordCard';
+import AccessRequestsCard from './AccessRequestsCard';
+import { type CCSession } from '@/lib/cc-data';
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -221,8 +223,31 @@ export default function FamilyPage() {
           throw new Error(`circle row ${myRowRes.status}: ${await myRowRes.text()}`);
         }
         const rows = (await myRowRes.json()) as CareCircleRow[];
-        const me = rows[0];
-        if (!me) throw new Error('Could not find your Care Circle row.');
+        let me = rows[0];
+        if (!me) {
+          // The signed-in account is the PATIENT looking at their own
+          // circle (Sovereign Edition runs on the Health OS project, so the
+          // elder can sign in to approve family access requests). There is
+          // no member row for the patient; synthesize one so the page
+          // renders with admin rights instead of failing.
+          if (valid.user_id === valid.patient_id) {
+            me = {
+              id: 'self',
+              patient_id: valid.patient_id,
+              member_user_id: valid.user_id,
+              member_email: '',
+              member_name: valid.patient_name || 'You',
+              member_phone: null,
+              relationship: 'Patient',
+              alert_level: 'critical',
+              care_role: 'admin',
+              patient_nickname: null,
+              created_at: new Date().toISOString(),
+            };
+          } else {
+            throw new Error('Could not find your Care Circle row.');
+          }
+        }
         if (cancelled) return;
         setMyRow(me);
 
@@ -659,6 +684,15 @@ export default function FamilyPage() {
       <div style={{ ...SECTION_LABEL, margin: '20px 0 10px' }}>Account security</div>
       <MfaCard session={session} />
       <ChangePasswordCard session={session} />
+
+      {/* Family-initiated access requests: only the patient or a circle
+          admin can approve, so only they see the card. */}
+      {myRow.care_role === 'admin' && (
+        <>
+          <div style={{ ...SECTION_LABEL, margin: '20px 0 10px' }}>Access requests</div>
+          <AccessRequestsCard session={session as CCSession} />
+        </>
+      )}
 
       {/* Vitals row from the Chikasha Health OS Shield */}
       <div style={{ ...SECTION_LABEL, margin: '20px 0 10px' }}>Latest vitals</div>

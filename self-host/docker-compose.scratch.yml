@@ -1,0 +1,18 @@
+# Overlay for an ISOLATED scratch stack used by the tested-restore procedure
+# (scripts/restore.sh) and by the dry run (DRY-RUN.md). Run it under a distinct
+# project name so its containers, network and named volumes never touch the
+# production stack:
+#
+#   docker compose -p carecircle-restore \
+#     -f docker-compose.yml -f docker-compose.scratch.yml up -d
+#
+# It only remaps the published host ports so a scratch stack can run beside a
+# live one without collisions. Volumes are isolated automatically because the
+# project name (-p) prefixes them.
+services:
+  db:
+    ports:
+      - "127.0.0.1:${SCRATCH_DB_PORT:-5433}:5432"
+  gateway:
+    ports:
+      - "${SCRATCH_GATEWAY_PORT:-8100}:8000"

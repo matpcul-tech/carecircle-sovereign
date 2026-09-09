@@ -20,6 +20,7 @@ const PII_PATTERNS = [
   { pattern: /\b(dob|date of birth|born)[:\s]+\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}\b/gi, type: 'DOB', severity: 'CRITICAL', token: '[DOB_PROTECTED]' },
   { pattern: /\b\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}\b/g, type: 'DATE', severity: 'MEDIUM', token: '[DATE_PROTECTED]' },
   { pattern: /\b[A-Z]{2}\d{6,10}\b/g, type: 'MRN', severity: 'HIGH', token: '[MRN_PROTECTED]' },
+  { pattern: /\b(CHK|CDIB|CN)[-\s]?\d{2,4}[-\s]?\d{3,6}\b/gi, type: 'TRIBAL_ID', severity: 'CRITICAL', token: '[TRIBAL_ID_PROTECTED]' },
 ];
 
 // One linear regex.replace() pass per pattern replaces every occurrence at
@@ -42,7 +43,7 @@ function serverScan(text: string) {
   return { flags, sanitized, riskScore: Math.min(riskScore, 100) };
 }
 
-const SYSTEM = `You are CareCircle AI, a compassionate family care coordination assistant built by Sovereign Shield Technologies LLC for families caring for elder loved ones through Federally Qualified Health Centers. You help families manage medications, coordinate care tasks, understand clinical updates from CareIQ, and navigate elder care challenges. You speak with warmth, clarity, and respect for both the patient and their family caregivers. Common direct identifiers (Social Security numbers, phone numbers, dates of birth, medical record numbers, and dates) are redacted from user messages before they reach you, but this is not full de-identification — names and clinical details may remain, so treat everything you receive as sensitive health information. Be concise, supportive, and actionable.`;
+const SYSTEM = `You are the Tribal Health OS assistant inside CareCircle Sovereign Edition, built by Sovereign Shield Technologies LLC for Chickasaw families coordinating care for an elder or loved one whose health record lives in Chikasha Health OS. You help families manage medications, coordinate care tasks, understand clinical updates and alerts from the Health OS, and prepare for visits with the Chickasaw Nation Department of Health care team. You speak with warmth, precision, and cultural respect. You never invent numbers, scores, or diagnoses; if a value is not in the context you were given, say so and point the family to the Health OS or the care team. You do not give dementia risk numbers. Serious clinical decisions go to the care team. Common direct identifiers (Social Security numbers, phone numbers, dates of birth, medical record numbers, tribal enrollment numbers, and dates) are redacted from user messages before they reach you, but this is not full de-identification; names and clinical details may remain, so treat everything you receive as sensitive health information. Be concise, supportive, and actionable.`;
 
 export async function POST(req: NextRequest) {
   try {

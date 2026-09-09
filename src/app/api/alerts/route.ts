@@ -11,7 +11,7 @@ const RATE_LIMIT = { name: 'alerts', max: 120, windowSeconds: 60 };
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const SERVICE_ROLE = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
-const CAREIQ_ALERT_SIGNING_KEY = process.env.CAREIQ_ALERT_SIGNING_KEY;
+const HEALTH_OS_ALERT_SIGNING_KEY = process.env.HEALTH_OS_ALERT_SIGNING_KEY;
 const SIGNATURE_MAX_AGE_SEC = 300;
 
 type Severity = 'critical' | 'informational';
@@ -115,7 +115,7 @@ function evaluate(v: Vitals): Flag[] {
 }
 
 // ---------------------------------------------------------------------------
-// Longevity panel-grade alerts (phase 4). Triggered by CareIQ when the
+// Longevity panel-grade alerts (phase 4). Triggered by Chikasha Health OS when the
 // patient's saved labs cause panel_grade to drop one or more letters.
 // Signature is mandatory on any request that carries a panel_grade_change.
 // ---------------------------------------------------------------------------
@@ -348,13 +348,13 @@ export async function POST(req: NextRequest) {
       return bad('rate limit exceeded, please slow down', 429);
     }
 
-    // ----- Authenticate EVERY alert request via the CareIQ HMAC signature.
+    // ----- Authenticate EVERY alert request via the Chikasha Health OS HMAC signature.
     // Alerts fan out real emails and SMS to a patient's care circle, so every
     // path (vitals thresholds and panel-grade changes alike) must be signed —
     // not just grade changes. The signature covers the exact raw body, so it
     // also authenticates patient_id and vitals against tampering/replay.
-    if (!CAREIQ_ALERT_SIGNING_KEY) {
-      return bad('signing key not configured on care-os', 500);
+    if (!HEALTH_OS_ALERT_SIGNING_KEY) {
+      return bad('signing key not configured on carecircle-sovereign', 500);
     }
     const sigHeader = req.headers.get('x-alert-signature') || '';
     const tsHeader = req.headers.get('x-alert-timestamp') || '';
@@ -370,7 +370,7 @@ export async function POST(req: NextRequest) {
       return bad('signature stale', 401);
     }
     const ok = await verifyHmac(
-      CAREIQ_ALERT_SIGNING_KEY,
+      HEALTH_OS_ALERT_SIGNING_KEY,
       tsHeader,
       rawBody,
       sigHeader,

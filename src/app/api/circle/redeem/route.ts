@@ -155,9 +155,9 @@ async function releaseInvite(inviteId: string): Promise<void> {
 }
 
 // Backfill patient_name when the invite row was written with null. The
-// patient is a Supabase auth user (CareIQ schema: patients.id = auth.uid()),
+// patient is a Supabase auth user (Chikasha Health OS schema: patients.id = auth.uid()),
 // and the patients table itself stores only an AES-256-GCM-encrypted
-// profile blob that care-os cannot read without CareIQ's vault key. So we
+// profile blob that CareCircle cannot read without the Health OS vault key. So we
 // derive the display name from the auth.users metadata that the patient
 // completed during onboarding, falling back to the email local-part if
 // metadata is empty too. Anything we resolve here is also written into

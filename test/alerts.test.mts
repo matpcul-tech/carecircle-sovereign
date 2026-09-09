@@ -6,7 +6,7 @@ import { FetchStub, makeReq, readJson } from "./harness.mts";
 // Env must be set before importing the module (read at module load).
 process.env.NEXT_PUBLIC_SUPABASE_URL = "https://sb.test";
 process.env.SUPABASE_SERVICE_ROLE_KEY = "service-role-key";
-process.env.CAREIQ_ALERT_SIGNING_KEY = "signing-secret";
+process.env.HEALTH_OS_ALERT_SIGNING_KEY = "signing-secret";
 process.env.RESEND_API_KEY = "resend-key";
 // Deliberately leave TWILIO_* unset to exercise the "not configured" branch.
 

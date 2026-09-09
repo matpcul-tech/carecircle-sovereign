@@ -80,14 +80,14 @@ export const PATIENT = {
   short: 'Eleanor',
   age: 78,
   id: 'CC-ELEANOR-001',
-  condition: 'Type 2 Diabetes, Hypertension, Mild Dementia',
+  condition: 'Type 2 Diabetes, Hypertension, Chronic kidney disease stage 2',
   bloodType: 'O+',
   allergies: 'Penicillin, Sulfa drugs',
   provider: 'Dr. Maria Santos, MD',
-  fqhc: 'Riverside Community Health Center',
+  healthSystem: 'Chickasaw Nation Department of Health',
   nextAppt: 'July 8, 2026',
-  careiqScore: 62,
-  careiqRisk: 'Moderate',
+  healthOsScore: null as number | null,
+  healthOsRisk: 'Not yet scored',
   trend: '+4.1% since last visit',
 };
 
@@ -135,10 +135,10 @@ export const DOCUMENTS: Document[] = [
 ];
 
 export const EMERGENCY_CONTACTS: EmergencyContact[] = [
-  { name: 'Eleanor Culwell', relation: 'Patient', phone: '(405) 555-0142', medical: 'Type 2 Diabetes, Hypertension, Mild Dementia' },
+  { name: 'Eleanor Culwell', relation: 'Patient', phone: '(405) 555-0142', medical: 'Type 2 Diabetes, Hypertension, Chronic kidney disease stage 2' },
   { name: 'Sarah Culwell', relation: 'Primary Caregiver / POA', phone: '(405) 555-0188' },
   { name: 'Dr. Maria Santos', relation: 'Primary Care', phone: '(405) 555-0177' },
-  { name: 'Riverside Community Health', relation: 'FQHC', phone: '(405) 555-0100' },
+  { name: 'Chickasaw Nation Medical Center', relation: 'Health system', phone: '(580) 436-3980' },
   { name: 'CVS Pharmacy on Main', relation: 'Pharmacy', phone: '(405) 555-0133' },
 ];
 
@@ -197,14 +197,14 @@ export const CAREIQ_INSIGHTS = [
     type: 'crit' as const,
     icon: '⚠️',
     title: 'A1C Trending Up — Diabetes Risk',
-    body: "Eleanor's A1C of 7.2% has increased from 6.8% at last visit. CareIQ recommends medication review and dietary check-in within 14 days. Loop in the family care team.",
+    body: "Eleanor's A1C of 7.2% has increased from 6.8% at last visit. The care team recommends medication review and dietary check-in within 14 days. Loop in the family care team.",
     conf: '94%',
   },
   {
     type: 'watch' as const,
     icon: '📈',
     title: 'BP Borderline — Monitor Closely',
-    body: 'BP at 138/86 sits above target of 130/80. CareIQ flags this for attention. Ensure Lisinopril and Amlodipine schedules are being followed consistently.',
+    body: 'BP at 138/86 sits above target of 130/80. The Health OS flags this for attention. Ensure Lisinopril and Amlodipine schedules are being followed consistently.',
     conf: '89%',
   },
   {

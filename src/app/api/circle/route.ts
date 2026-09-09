@@ -25,7 +25,7 @@ async function authorizeForPatient(
   }
   return null;
 }
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://care-os.vercel.app';
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://carecircle-sovereign.vercel.app';
 
 const ALERT_LEVELS = ['critical', 'informational'] as const;
 type AlertLevel = (typeof ALERT_LEVELS)[number];

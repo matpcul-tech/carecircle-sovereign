@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 
 const SUPABASE_URL = (process.env.NEXT_PUBLIC_SUPABASE_URL || '').trim();
 const SERVICE_ROLE = (process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim();
-const APP_URL = (process.env.NEXT_PUBLIC_APP_URL || 'https://care-os.vercel.app').replace(/\/$/, '');
+const APP_URL = (process.env.NEXT_PUBLIC_APP_URL || 'https://carecircle-sovereign.vercel.app').replace(/\/$/, '');
 
 const IP_LIMIT = { name: 'reset-req-ip', max: 15, windowSeconds: 900 };
 const EMAIL_LIMIT = { name: 'reset-req-email', max: 5, windowSeconds: 900 };

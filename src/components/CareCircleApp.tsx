@@ -6,14 +6,14 @@ import { loadSession, ensureValidSession, type CCSession } from '@/lib/cc-data';
 /**
  * CareCircle Family Monitor.
  *
- * Family-facing remote monitoring surface. The patient lives on CareIQ
- * (cookie-authed). Family members log into care-os with a Supabase
+ * Family-facing remote monitoring surface. The patient lives on Chikasha
+ * Health OS (cookie-authed). Family members log into CareCircle with a Supabase
  * account; their cc-session in localStorage holds the access_token plus
  * patient_id (resolved server-side at invite redemption from the
  * care_circle row).
  *
  * Data plane:
- *   - Live vitals + biomarker panel: poll {CAREIQ_URL}/api/shield/decrypt
+ *   - Live vitals + biomarker panel: poll {HEALTH_OS_URL}/api/shield/decrypt
  *     every 5s with the Supabase Bearer token. The endpoint resolves
  *     family-member auth via care_circle membership and returns the same
  *     shape the patient sees, so the family LIVE strip is real data, not
@@ -21,15 +21,15 @@ import { loadSession, ensureValidSession, type CCSession } from '@/lib/cc-data';
  *   - Medications + medication_logs: Supabase REST direct with the
  *     family member's JWT; RLS via is_patient_or_member.
  *   - Appointments + care_circle: same.
- *   - AI chat: posts to {CAREIQ_URL}/api/shield with the JWT.
+ *   - AI chat: posts to {HEALTH_OS_URL}/api/shield with the JWT.
  *
  * Single-file by design (per shipping constraint). All inline.
  */
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const CAREIQ_URL =
-  process.env.NEXT_PUBLIC_CAREIQ_URL || 'https://care-iq-sable.vercel.app';
+const HEALTH_OS_URL =
+  process.env.NEXT_PUBLIC_HEALTH_OS_URL || 'https://sovereignhealthcareos.com';
 
 const T = "'DM Mono',monospace";
 const P = "'Playfair Display',serif";
@@ -365,7 +365,7 @@ function useShieldPolling(session: CCSession | null): {
           if (!cancelled) setErr('Session expired');
           return;
         }
-        const r = await fetch(`${CAREIQ_URL}/api/shield/decrypt`, {
+        const r = await fetch(`${HEALTH_OS_URL}/api/shield/decrypt`, {
           headers: { Authorization: `Bearer ${valid.access_token}` },
           cache: 'no-store',
         });
@@ -1517,7 +1517,7 @@ function AIView({ session, router }: { session: CCSession; router: ReturnType<ty
     try {
       const valid = await ensureValidSession(session);
       if (!valid) { router.push('/login'); return; }
-      const r = await fetch(`${CAREIQ_URL}/api/shield`, {
+      const r = await fetch(`${HEALTH_OS_URL}/api/shield`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

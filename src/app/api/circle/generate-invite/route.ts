@@ -8,7 +8,7 @@ const RATE_LIMIT = { name: 'generate-invite', max: 20, windowSeconds: 60 };
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 const SERVICE_ROLE = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://care-os-uo7x.vercel.app';
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://carecircle-sovereign.vercel.app';
 
 const ALERT_LEVELS = ['critical', 'informational'] as const;
 type AlertLevel = (typeof ALERT_LEVELS)[number];
@@ -33,7 +33,7 @@ interface SupabaseUser {
   user_metadata?: Record<string, unknown> | null;
 }
 
-// CareIQ may live on a different origin — keep CORS open for trusted clients.
+// Chikasha Health OS may live on a different origin — keep CORS open for trusted clients.
 const CORS_HEADERS: Record<string, string> = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',

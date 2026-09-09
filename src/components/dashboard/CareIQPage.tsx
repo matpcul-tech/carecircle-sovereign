@@ -8,8 +8,8 @@ import {
 } from '@/lib/cc-data';
 import { T, PAGE_PAD, SECTION_LABEL, CARD_BG, CARD_BORDER } from './ui';
 
-const CAREIQ_URL =
-  process.env.NEXT_PUBLIC_CAREIQ_URL || 'https://care-iq-sable.vercel.app';
+const HEALTH_OS_URL =
+  process.env.NEXT_PUBLIC_HEALTH_OS_URL || 'https://sovereignhealthcareos.com';
 
 // ---------------------------------------------------------------------------
 // Shield decrypt response shape (longevity biomarker panel + legacy fields).
@@ -667,7 +667,7 @@ export default function CareIQPage({ session }: { session: CCSession }) {
     let cancelled = false;
     (async () => {
       try {
-        const r = await fetch(`${CAREIQ_URL}/api/shield/decrypt`, {
+        const r = await fetch(`${HEALTH_OS_URL}/api/shield/decrypt`, {
           headers: { Authorization: `Bearer ${session.access_token}` },
           cache: 'no-store',
         });
@@ -886,7 +886,7 @@ export default function CareIQPage({ session }: { session: CCSession }) {
             lineHeight: 1.6,
           }}
         >
-          Loading biomarker panel from CareIQ Shield...
+          Loading biomarker panel from the Chikasha Health OS Shield...
         </div>
       )}
 

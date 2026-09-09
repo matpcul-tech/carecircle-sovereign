@@ -8,8 +8,8 @@ import ChangePasswordCard from './ChangePasswordCard';
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const CAREIQ_URL =
-  process.env.NEXT_PUBLIC_CAREIQ_URL || 'https://care-iq-sable.vercel.app';
+const HEALTH_OS_URL =
+  process.env.NEXT_PUBLIC_HEALTH_OS_URL || 'https://sovereignhealthcareos.com';
 
 type Severity = 'critical' | 'informational';
 
@@ -244,7 +244,7 @@ export default function FamilyPage() {
       }
 
       try {
-        const r = await fetch(`${CAREIQ_URL}/api/shield/decrypt`, {
+        const r = await fetch(`${HEALTH_OS_URL}/api/shield/decrypt`, {
           headers: { Authorization: `Bearer ${valid.access_token}` },
           cache: 'no-store',
         });
@@ -660,7 +660,7 @@ export default function FamilyPage() {
       <MfaCard session={session} />
       <ChangePasswordCard session={session} />
 
-      {/* Vitals row from CareIQ Shield */}
+      {/* Vitals row from the Chikasha Health OS Shield */}
       <div style={{ ...SECTION_LABEL, margin: '20px 0 10px' }}>Latest vitals</div>
       {anyVitalEntered ? (
         <>
@@ -748,8 +748,8 @@ export default function FamilyPage() {
           {vitalsErr
             ? `Vitals not available: ${vitalsErr}`
             : vitals === null
-            ? 'Loading vitals from CareIQ...'
-            : 'No lab values on file. Vitals appear here after the patient enters them in CareIQ.'}
+            ? 'Loading vitals from Chikasha Health OS...'
+            : 'No lab values on file. Vitals appear here after the patient enters them in Chikasha Health OS.'}
         </div>
       )}
 

@@ -119,7 +119,7 @@ export default function EmergencyPage({ session }: { session: CCSession }) {
         </div>
         <div style={{ fontSize: 11, color: '#A8B8C8', lineHeight: 1.6 }}>
           Conditions, medications, allergies, and blood type live in the patient&apos;s encrypted
-          CareIQ vault. A non-PHI emergency profile mirror is needed before this section can fill.
+          Chikasha Health OS vault. A non-PHI emergency profile mirror is needed before this section can fill.
         </div>
       </div>
     </div>

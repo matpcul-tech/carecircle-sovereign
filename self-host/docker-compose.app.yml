@@ -22,7 +22,7 @@ services:
         NEXT_PUBLIC_SUPABASE_URL: ${API_EXTERNAL_URL}
         NEXT_PUBLIC_SUPABASE_ANON_KEY: ${ANON_KEY}
         NEXT_PUBLIC_APP_URL: ${SITE_URL}
-        NEXT_PUBLIC_CAREIQ_URL: ${NEXT_PUBLIC_CAREIQ_URL:-}
+        NEXT_PUBLIC_HEALTH_OS_URL: ${NEXT_PUBLIC_HEALTH_OS_URL:-}
     restart: unless-stopped
     depends_on:
       gateway:

@@ -1,0 +1,42 @@
+# Overlay that runs the CareCircle app container alongside the self-hosted
+# Supabase stack, in the SAME compose project (one network, one host → one
+# BAA). Use together with the base file:
+#
+#   docker compose -f docker-compose.yml -f docker-compose.app.yml up -d --build
+#
+# The app image is built from the repo root (../Dockerfile). NEXT_PUBLIC_*
+# values are baked at build time from the stack's .env; server-only secrets
+# come from ./app.env at runtime (copy app.env.example -> app.env first).
+
+name: carecircle-supabase
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+      args:
+        # IMPORTANT: NEXT_PUBLIC_SUPABASE_URL must be an address reachable by
+        # BOTH the browser and the app container - i.e. your PUBLIC gateway URL
+        # (API_EXTERNAL_URL). See the README note before using localhost.
+        NEXT_PUBLIC_SUPABASE_URL: ${API_EXTERNAL_URL}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${ANON_KEY}
+        NEXT_PUBLIC_APP_URL: ${SITE_URL}
+        NEXT_PUBLIC_CAREIQ_URL: ${NEXT_PUBLIC_CAREIQ_URL:-}
+    restart: unless-stopped
+    depends_on:
+      gateway:
+        condition: service_started
+    environment:
+      NODE_ENV: production
+      # Server-side reads of the public config (API routes use these at runtime).
+      NEXT_PUBLIC_SUPABASE_URL: ${API_EXTERNAL_URL}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${ANON_KEY}
+      NEXT_PUBLIC_APP_URL: ${SITE_URL}
+      # Server-only secret sourced from the stack's .env.
+      SUPABASE_SERVICE_ROLE_KEY: ${SERVICE_ROLE_KEY}
+    # The app's own runtime secrets (VAULT_KEY_HEX, provider keys, signing key).
+    env_file:
+      - ./app.env
+    ports:
+      - "${APP_PORT:-3000}:3000"

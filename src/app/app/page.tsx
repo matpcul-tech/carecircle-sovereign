@@ -103,7 +103,7 @@ export default function AppPage() {
                   marginTop: 2,
                 }}
               >
-                Family Monitoring
+                Sovereign Edition
               </div>
             </div>
           </Link>

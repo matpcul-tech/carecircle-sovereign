@@ -3,18 +3,13 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import {
   Heart, Calendar, Users, FileText, Pill,
-  Star, ArrowRight, AlertTriangle, Bot, Shield, Phone,
+  ArrowRight, AlertTriangle, Bot, Shield, Phone,
 } from 'lucide-react';
 
 const T = "'DM Mono',monospace";
 const O = "'Outfit',sans-serif";
 const P = "'Playfair Display',serif";
 
-const TESTIMONIALS = [
-  { name: 'Rachel M.', role: 'Caring for her father', text: "I was drowning in group texts and sticky notes. CareCircle gave our family one place to coordinate everything. Dad's care has never been this organized.", stars: 5 },
-  { name: 'David K.', role: 'Long-distance caregiver', text: 'Living 800 miles from Mom, I always felt out of the loop. Now I see every appointment, every med change, every update in real time.', stars: 5 },
-  { name: 'Maria S.', role: 'Coordinating for both parents', text: "The AI summaries after doctor visits are a game-changer. I just share them with my brothers and everyone is on the same page instantly.", stars: 5 },
-];
 
 const FEATURES = [
   { icon: Pill, title: 'Medication Tracker', desc: 'Visual daily schedule with refill alerts, dosage history, and one-tap logging for the whole family to see.', color: '#7BC8A0' },
@@ -72,7 +67,6 @@ export default function LandingPage() {
         .feature-card:hover{transform:translateY(-4px);border-color:rgba(123,200,160,.3)}
         .problem-card{background:rgba(255,255,255,.04);border:1px solid rgba(123,200,160,.1);border-radius:16px;padding:24px;transition:all .2s}
         .problem-card:hover{border-color:rgba(123,200,160,.25)}
-        .testimonial-card{background:rgba(255,255,255,.04);border:1px solid rgba(123,200,160,.14);border-radius:18px;padding:28px}
         .step-card{flex:1;padding:32px 24px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(123,200,160,.14);position:relative;counter-increment:step}
         .step-card::before{content:counter(step);font-family:'Playfair Display',serif;font-size:52px;font-weight:300;color:rgba(123,200,160,.1);position:absolute;top:16px;right:20px;line-height:1}
         @media(max-width:768px){
@@ -82,7 +76,6 @@ export default function LandingPage() {
           .lp-section{padding:60px 20px!important}
           .features-grid{grid-template-columns:1fr!important}
           .steps-row{flex-direction:column!important}
-          .testimonials-grid{grid-template-columns:1fr!important}
           .problem-grid{grid-template-columns:1fr!important}
           .who-grid{grid-template-columns:1fr!important}
         }
@@ -94,7 +87,10 @@ export default function LandingPage() {
           <div style={{ width:34, height:34, borderRadius:10, background:'linear-gradient(135deg,#3D8B5E,#8060cc)', display:'flex', alignItems:'center', justifyContent:'center', boxShadow:'0 0 14px rgba(123,200,160,.3)' }}>
             <Heart size={16} color="#fff" fill="#fff" />
           </div>
-          <div style={{ fontFamily:P, fontSize:17, color:'#F4EDE1' }}>CareCircle</div>
+          <div>
+            <div style={{ fontFamily:P, fontSize:17, color:'#F4EDE1', lineHeight:1.1 }}>CareCircle</div>
+            <div style={{ fontFamily:T, fontSize:8, color:'#C07941', letterSpacing:2, textTransform:'uppercase', marginTop:2 }}>Sovereign Edition</div>
+          </div>
         </div>
         <div className="nav-desktop" style={{ display:'flex', gap:28, alignItems:'center' }}>
           <a href="#features" className="nav-link">Features</a>
@@ -130,18 +126,18 @@ export default function LandingPage() {
         <FadeIn>
           <div style={{ display:'inline-flex', alignItems:'center', gap:8, padding:'7px 18px', borderRadius:24, background:'rgba(123,200,160,.08)', border:'1px solid rgba(123,200,160,.2)', fontSize:12, fontWeight:700, color:'#7BC8A0', marginBottom:28, fontFamily:T, letterSpacing:1, textTransform:'uppercase' }}>
             <div style={{ width:7, height:7, borderRadius:'50%', background:'#4ade80', animation:'pulse-dot 2s infinite' }}/>
-            Free for families served by community health centers
+            Free for Chickasaw families served by the Nation
           </div>
         </FadeIn>
         <FadeIn delay={0.1}>
           <h1 style={{ fontFamily:P, fontSize:'clamp(36px,6vw,68px)', fontWeight:300, lineHeight:1.1, letterSpacing:-1, maxWidth:800, marginBottom:24, color:'#F4EDE1' }}>
-            Caring for Mom or Dad{' '}
+            Caring for your elder{' '}
             <em style={{ fontStyle:'italic', color:'#7BC8A0', animation:'glow 3s ease-in-out infinite' }}>just got easier</em>
           </h1>
         </FadeIn>
         <FadeIn delay={0.2}>
           <p style={{ fontSize:'clamp(15px,2.2vw,19px)', lineHeight:1.75, color:'#A8B8C8', maxWidth:580, marginBottom:40 }}>
-            CareCircle is a free care coordination tool for families managing the health of an aging parent or grandparent. One place for medications, appointments, tasks, and an AI assistant that keeps your whole family in the loop.
+            CareCircle Sovereign Edition is a free care coordination tool for Chickasaw families managing the health of an elder or loved one. One place for medications, appointments, tasks, and an AI assistant that keeps the whole family in the loop, with live data from Chikasha Health OS. Your family's information stays under Nation control.
           </p>
         </FadeIn>
         <FadeIn delay={0.3}>
@@ -156,7 +152,7 @@ export default function LandingPage() {
         </FadeIn>
         <FadeIn delay={0.4}>
           <div style={{ display:'flex', flexWrap:'wrap', justifyContent:'center', gap:24 }}>
-            {[['💰','Free for all families'],['🔒','Patient data protected'],['📱','Works on any phone'],['👪','Share with family']].map(([ico,text],i)=>(
+            {[['🛡️','Sovereign Shield on'],['🏛️','Data stays with the Nation'],['📱','Works on any phone'],['👪','Share with family']].map(([ico,text],i)=>(
               <div key={i} style={{ display:'flex', alignItems:'center', gap:7, fontSize:13, color:'#A8B8C8' }}>
                 <span>{ico}</span><span>{text}</span>
               </div>
@@ -170,8 +166,8 @@ export default function LandingPage() {
         <div style={{ maxWidth:1100, margin:'0 auto' }}>
           <FadeIn>
             <div style={{ fontFamily:T, fontSize:10, color:'#7BC8A0', textTransform:'uppercase', letterSpacing:3, marginBottom:12 }}>The Problem</div>
-            <h2 style={{ fontFamily:P, fontSize:'clamp(26px,4vw,42px)', fontWeight:300, lineHeight:1.2, marginBottom:16, color:'#F4EDE1' }}>Caring for aging parents is hard enough.<br/>The tools make it harder.</h2>
-            <p style={{ fontSize:16, lineHeight:1.75, color:'#A8B8C8', maxWidth:580, marginBottom:48 }}>53 million Americans are family caregivers. Most are doing it on their phones, between work shifts, with no support and no system.</p>
+            <h2 style={{ fontFamily:P, fontSize:'clamp(26px,4vw,42px)', fontWeight:300, lineHeight:1.2, marginBottom:16, color:'#F4EDE1' }}>Caring for an elder is hard enough.<br/>The tools make it harder.</h2>
+            <p style={{ fontSize:16, lineHeight:1.75, color:'#A8B8C8', maxWidth:580, marginBottom:48 }}>Chickasaw families carry the care of their elders across counties, shifts, and generations. Most are doing it on their phones with no support and no system.</p>
           </FadeIn>
           <div className="problem-grid" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:16 }}>
             {[
@@ -198,7 +194,7 @@ export default function LandingPage() {
           <FadeIn>
             <div style={{ fontFamily:T, fontSize:10, color:'#7BC8A0', textTransform:'uppercase', letterSpacing:3, marginBottom:12 }}>Features</div>
             <h2 style={{ fontFamily:P, fontSize:'clamp(26px,4vw,42px)', fontWeight:300, lineHeight:1.2, marginBottom:16, color:'#F4EDE1' }}>Everything your family needs<br/>in one place</h2>
-            <p style={{ fontSize:16, lineHeight:1.75, color:'#A8B8C8', maxWidth:540, marginBottom:48 }}>Built for real family caregivers — people working full time jobs, raising kids, and still showing up for their parents.</p>
+            <p style={{ fontSize:16, lineHeight:1.75, color:'#A8B8C8', maxWidth:540, marginBottom:48 }}>Built for real family caregivers: people working full time jobs, raising kids, and still showing up for their elders.</p>
           </FadeIn>
           <div className="features-grid" style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:16 }}>
             {FEATURES.map((f,i)=>(
@@ -227,38 +223,13 @@ export default function LandingPage() {
           <div className="steps-row" style={{ display:'flex', gap:20, counterReset:'step' }}>
             {[
               { title:'Add your loved one', text:"Enter their medications, conditions, doctor names, and allergies. Takes about 3 minutes and you only do it once." },
-              { title:'Invite your family', text:"Add a sibling, a spouse, or a home health aide. Everyone sees the same information and knows who is doing what." },
+              { title:'Request or accept access', text:"A family member requests access to the elder's Health OS, or the elder sends an invite. The elder approves and sets what each person can see." },
               { title:'Let CareCircle help', text:"Get reminders for medications, alerts for upcoming appointments, and an AI assistant that answers your questions any time." },
             ].map((s,i)=>(
               <FadeIn key={i} delay={i*0.12}>
                 <div className="step-card">
                   <div style={{ fontWeight:700, fontSize:15, marginBottom:8, color:'#F4EDE1' }}>{s.title}</div>
                   <div style={{ fontSize:13, lineHeight:1.65, color:'#A8B8C8' }}>{s.text}</div>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section style={{ padding:'100px 24px', background:'rgba(255,255,255,.02)', borderTop:'1px solid rgba(123,200,160,.08)', borderBottom:'1px solid rgba(123,200,160,.08)' }}>
-        <div style={{ maxWidth:1100, margin:'0 auto' }}>
-          <FadeIn>
-            <div style={{ fontFamily:T, fontSize:10, color:'#7BC8A0', textTransform:'uppercase', letterSpacing:3, marginBottom:12 }}>Stories</div>
-            <h2 style={{ fontFamily:P, fontSize:'clamp(26px,4vw,42px)', fontWeight:300, lineHeight:1.2, marginBottom:16, color:'#F4EDE1' }}>Families who got their lives back</h2>
-            <p style={{ fontSize:16, lineHeight:1.75, color:'#A8B8C8', marginBottom:48 }}>Real caregivers, real relief.</p>
-          </FadeIn>
-          <div className="testimonials-grid" style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:20 }}>
-            {TESTIMONIALS.map((t,i)=>(
-              <FadeIn key={i} delay={i*0.1}>
-                <div className="testimonial-card">
-                  <div style={{ display:'flex', gap:3, marginBottom:14 }}>
-                    {Array(t.stars).fill(0).map((_,j)=><Star key={j} size={15} fill="#C07941" color="#C07941"/>)}
-                  </div>
-                  <div style={{ fontSize:14, lineHeight:1.7, fontStyle:'italic', color:'#F4EDE1', marginBottom:16 }}>&ldquo;{t.text}&rdquo;</div>
-                  <div style={{ fontSize:13, fontWeight:700, color:'#7BC8A0' }}>{t.name}</div>
-                  <div style={{ fontSize:11, color:'#A8B8C8', marginTop:2 }}>{t.role}</div>
                 </div>
               </FadeIn>
             ))}
@@ -273,14 +244,14 @@ export default function LandingPage() {
             <div style={{ fontFamily:T, fontSize:10, color:'#7BC8A0', textTransform:'uppercase', letterSpacing:3, marginBottom:12 }}>Who It Is For</div>
             <h2 style={{ fontFamily:P, fontSize:'clamp(26px,4vw,42px)', fontWeight:300, lineHeight:1.2, marginBottom:16, color:'#F4EDE1' }}>Built for families just like yours</h2>
             <p style={{ fontSize:16, lineHeight:1.75, color:'#A8B8C8', maxWidth:580, marginBottom:48 }}>
-              CareCircle is designed for families managing the care of an aging loved one served by a community health center. It is completely free to use.
+              CareCircle Sovereign Edition is designed for Chickasaw families managing the care of an elder or loved one served by the Nation. It is completely free to use.
             </p>
           </FadeIn>
           <div className="who-grid" style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:20, marginBottom:40 }}>
             {[
               { ico:'👵', title:'Caring for a parent', desc:'Mom has diabetes and high blood pressure. She sees three different doctors and takes six medications. CareCircle keeps it all in one place so nothing falls through the cracks.', color:'#7BC8A0' },
               { ico:'👨‍👩‍👧', title:'Families spread out', desc:"You live two hours away. Your sister lives across the country. CareCircle keeps everyone on the same page without the group chat chaos.", color:'#8060cc' },
-              { ico:'🏥', title:'Community health patients', desc:'If your family gets care at a community health center, CareCircle connects directly with your care team so nothing gets lost between visits.', color:'#4ade80' },
+              { ico:'🏥', title:'Chickasaw Nation patients', desc:'If your elder is a Chikasha Health OS patient, CareCircle shows the family the same live picture the elder sees, and alerts reach the family the moment a threshold is crossed.', color:'#4ade80' },
             ].map((w,i)=>(
               <FadeIn key={i} delay={i*0.1}>
                 <div style={{ background:'rgba(255,255,255,.04)', border:`1px solid ${w.color}25`, borderRadius:18, padding:28, textAlign:'center' }}>
@@ -315,13 +286,13 @@ export default function LandingPage() {
         </div>
         <FadeIn>
           <h2 style={{ fontFamily:P, fontSize:'clamp(28px,5vw,48px)', fontWeight:300, lineHeight:1.15, letterSpacing:-1, maxWidth:600, margin:'0 auto 16px', color:'#F4EDE1', position:'relative' }}>
-            Your parents took care of you.<br/>
+            Your elders took care of you.<br/>
             <em style={{ color:'#7BC8A0', fontStyle:'italic' }}>Now it&apos;s your turn.</em>
           </h2>
         </FadeIn>
         <FadeIn delay={0.1}>
           <p style={{ fontSize:17, color:'#A8B8C8', maxWidth:480, margin:'0 auto 36px', lineHeight:1.7, position:'relative' }}>
-            Free for every family served by a community health center. No credit card. No signup fees. Just help.
+            Free for every Chickasaw family served by the Nation. No credit card. No signup fees. Just help.
           </p>
         </FadeIn>
         <FadeIn delay={0.2}>
@@ -334,7 +305,7 @@ export default function LandingPage() {
             </a>
           </div>
           <div style={{ fontFamily:T, fontSize:10, color:'#A8B8C8', marginTop:16, letterSpacing:1, position:'relative' }}>
-            Free for all families · Patient data protected · Works on any device
+            Free for Chickasaw families · Data stays with the Nation · Works on any device
           </div>
         </FadeIn>
       </section>
@@ -347,7 +318,7 @@ export default function LandingPage() {
               <Heart size={13} color="#fff" fill="#fff"/>
             </div>
             <div>
-              <div style={{ fontFamily:P, fontSize:14, color:'#F4EDE1' }}>CareCircle</div>
+              <div style={{ fontFamily:P, fontSize:14, color:'#F4EDE1' }}>CareCircle Sovereign Edition</div>
               <div style={{ fontFamily:T, fontSize:9, color:'#A8B8C8', letterSpacing:1 }}>SOVEREIGN SHIELD TECHNOLOGIES LLC</div>
             </div>
           </div>

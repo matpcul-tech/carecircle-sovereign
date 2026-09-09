@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { loadSession, ensureValidSession, type CCSession } from '@/lib/cc-data';
 
 /**
- * CareCircle Family Monitor.
+ * CareCircle Sovereign Edition.
  *
  * Family-facing remote monitoring surface. The patient lives on Chikasha
  * Health OS (cookie-authed). Family members log into CareCircle with a Supabase
@@ -1484,7 +1484,7 @@ function FamilyView({ session, router }: { session: CCSession; router: ReturnTyp
 }
 
 // =========================================================================
-// AIView (CareCircle Health OS)
+// AIView (Tribal Health OS)
 // =========================================================================
 
 interface ChatTurn { role: 'user' | 'ai'; text: string }
@@ -1533,7 +1533,7 @@ function AIView({ session, router }: { session: CCSession; router: ReturnType<ty
       } else if (typeof d.insight === 'string' && d.insight.length > 0) {
         aiText = d.insight;
       } else {
-        aiText = 'CareCircle Health OS is unavailable right now. Try again in a moment.';
+        aiText = 'Tribal Health OS is unavailable right now. Try again in a moment.';
       }
       setMsgs((p) => [...p, { role: 'ai', text: aiText }]);
     } catch {
@@ -1576,7 +1576,7 @@ function AIView({ session, router }: { session: CCSession; router: ReturnType<ty
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ fontFamily: P, fontSize: 16, color: INK, marginBottom: 2 }}>
-              CareCircle Health OS
+              Tribal Health OS
             </div>
             <div style={{ fontSize: 11, color: SUB, lineHeight: 1.5 }}>
               AI grounded in your loved one's live wearable data and clinical
@@ -1643,7 +1643,7 @@ function AIView({ session, router }: { session: CCSession; router: ReturnType<ty
         ))}
         {sending && (
           <div style={{ padding: '9px 12px', fontSize: 11, color: MUTED, fontStyle: 'italic' }}>
-            CareCircle Health OS thinking...
+            Tribal Health OS thinking...
           </div>
         )}
       </div>
@@ -1684,7 +1684,7 @@ function AIView({ session, router }: { session: CCSession; router: ReturnType<ty
               ask(input);
             }
           }}
-          placeholder="Ask CareCircle Health OS..."
+          placeholder="Ask Tribal Health OS..."
           disabled={sending}
           style={{
             flex: 1,
@@ -2050,7 +2050,7 @@ export default function CareCircleApp() {
                     marginTop: 3,
                   }}
                 >
-                  Family Monitor
+                  Sovereign Edition
                 </div>
               </div>
             </div>

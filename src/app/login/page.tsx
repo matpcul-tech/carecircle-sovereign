@@ -301,6 +301,7 @@ export default function LoginPage() {
           </div>
           <div style={{ fontFamily: P, fontSize: 18, color: '#F4EDE1' }}>
             CareCircle
+            <span style={{ fontFamily: T, fontSize: 9, color: '#C07941', letterSpacing: 2, textTransform: 'uppercase', marginLeft: 6 }}>Sovereign Edition</span>
           </div>
         </Link>
 

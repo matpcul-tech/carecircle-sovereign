@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: "CareCircle — Your family's care command center",
-  description: 'One shared place for medications, appointments, tasks, documents, and an AI assistant that keeps everyone in the loop. With CareIQ FQHC clinical data and the Sovereign Shield built in.',
+  title: 'CareCircle Sovereign Edition | Chickasaw family care, on Nation terms',
+  description: 'One shared place for a Chickasaw family to coordinate medications, appointments, tasks, and documents for a loved one, with live data from Chikasha Health OS and the Sovereign Shield built in.',
 };
 
 export const viewport: Viewport = {

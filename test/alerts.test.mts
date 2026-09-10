@@ -57,6 +57,71 @@ test("evaluate(): BP over threshold produces a critical flag", async () => {
   assert.equal(bp.severity, "critical");
 });
 
+// ---- Wearable metrics: the readings a watch reports continuously ----------
+
+test("evaluate(): SpO2 below 88 is critical", async () => {
+  stub.reset();
+  circleMembers([
+    { id: "m1", member_email: "a@x.com", member_name: "A", member_phone: null, alert_level: "critical" },
+  ]);
+  const res = await POST(signedReq({ patient_id: "p1", vitals: { spo2: 86 } }));
+  const { status, body } = await readJson(res);
+  assert.equal(status, 200);
+  const f = body.flags.find((f: any) => f.metric === "Blood Oxygen");
+  assert.equal(f.severity, "critical");
+});
+
+test("evaluate(): SpO2 in the 88-92 band is informational, not critical", async () => {
+  stub.reset();
+  circleMembers([]);
+  const res = await POST(signedReq({ patient_id: "p1", vitals: { spo2: 91 } }));
+  const { body } = await readJson(res);
+  const f = body.flags.find((f: any) => f.metric === "Blood Oxygen");
+  assert.equal(f.severity, "informational");
+});
+
+test("evaluate(): a healthy SpO2 and resting heart rate do NOT flag", async () => {
+  stub.reset();
+  circleMembers([]);
+  const res = await POST(signedReq({ patient_id: "p1", vitals: { spo2: 97, hr: 72 } }));
+  const { body } = await readJson(res);
+  assert.equal(body.flagged, false);
+});
+
+test("evaluate(): heart rate is critical when very high or very low", async () => {
+  for (const hr of [140, 38]) {
+    stub.reset();
+    circleMembers([]);
+    const res = await POST(signedReq({ patient_id: "p1", vitals: { hr } }));
+    const { body } = await readJson(res);
+    const f = body.flags.find((f: any) => f.metric === "Heart Rate");
+    assert.equal(f.severity, "critical", `hr=${hr} should be critical`);
+  }
+});
+
+test("evaluate(): mildly off heart rate is informational", async () => {
+  for (const hr of [115, 45]) {
+    stub.reset();
+    circleMembers([]);
+    const res = await POST(signedReq({ patient_id: "p1", vitals: { hr } }));
+    const { body } = await readJson(res);
+    const f = body.flags.find((f: any) => f.metric === "Heart Rate");
+    assert.equal(f.severity, "informational", `hr=${hr} should be informational`);
+  }
+});
+
+test("a critical wearable reading reaches a critical-only member", async () => {
+  stub.reset();
+  circleMembers([
+    { id: "m1", member_email: "son@x.com", member_name: "Son", member_phone: "+15805550123", alert_level: "critical" },
+  ]);
+  const res = await POST(signedReq({ patient_id: "p1", vitals: { spo2: 84 } }));
+  const { body } = await readJson(res);
+  assert.equal(body.flagged, true);
+  assert.equal(body.delivery.length, 1, "critical-only member must be emailed for a critical flag");
+  assert.equal(body.delivery[0].email, "son@x.com");
+});
+
 test("evaluate(): boundary values do NOT flag (a1c=6.4, ldl=200, bp=140/90)", async () => {
   stub.reset();
   circleMembers([]);

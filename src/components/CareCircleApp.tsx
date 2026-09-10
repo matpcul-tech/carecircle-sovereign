@@ -14,7 +14,7 @@ import { loadSession, ensureValidSession, type CCSession } from '@/lib/cc-data';
  *
  * Data plane:
  *   - Live vitals + biomarker panel: poll {HEALTH_OS_URL}/api/shield/decrypt
- *     every 5s with the Supabase Bearer token. The endpoint resolves
+ *     on an interval with the Supabase Bearer token. The endpoint resolves
  *     family-member auth via care_circle membership and returns the same
  *     shape the patient sees, so the family LIVE strip is real data, not
  *     a snapshot.
@@ -337,7 +337,12 @@ function Cell({ value, label, tone }: { value: string; label: string; tone: stri
 // Live shield poller (shared across screens)
 // =========================================================================
 
-const POLL_MS = 5000;
+// A 5s poll ran ~720 reads and one audit insert per hour per open tab -
+// enough sustained database IO, on a screen the app tells people to leave
+// open, to deplete the project's IO budget. Vitals do not change on that
+// timescale; a minute is still "live" for a wearable feed.
+const POLL_MS = 60_000;
+const POLL_LABEL = `${Math.round(POLL_MS / 1000)}s`;
 
 function useShieldPolling(session: CCSession | null): {
   shield: ShieldPayload | null;
@@ -356,9 +361,19 @@ function useShieldPolling(session: CCSession | null): {
     if (!session) return;
     let cancelled = false;
     let timer: number | null = null;
+    let inFlight = false;
     const fire = async () => {
       const s = sessRef.current;
       if (!s) return;
+      // A backgrounded tab keeps its session open; polling it spends
+      // database IO on a screen nobody is looking at. Wait for the
+      // visibility listener below to refresh on return instead.
+      if (typeof document !== 'undefined' && document.hidden) {
+        if (!cancelled) timer = window.setTimeout(fire, POLL_MS);
+        return;
+      }
+      if (inFlight) return;
+      inFlight = true;
       try {
         const valid = await ensureValidSession(s);
         if (!valid) {
@@ -385,12 +400,24 @@ function useShieldPolling(session: CCSession | null): {
           setLoading(false);
         }
       } finally {
+        inFlight = false;
         if (!cancelled) timer = window.setTimeout(fire, POLL_MS);
       }
     };
+    const onVisibility = () => {
+      if (cancelled || document.hidden) return;
+      if (timer != null) window.clearTimeout(timer);
+      fire();
+    };
+    if (typeof document !== 'undefined') {
+      document.addEventListener('visibilitychange', onVisibility);
+    }
     fire();
     return () => {
       cancelled = true;
+      if (typeof document !== 'undefined') {
+        document.removeEventListener('visibilitychange', onVisibility);
+      }
       if (timer != null) window.clearTimeout(timer);
     };
   }, [session]);
@@ -502,7 +529,7 @@ function LiveWearableStrip({ shield }: { shield: ShieldPayload | null }) {
           <div style={{ minWidth: 0 }}>
             <div style={{ fontSize: 14, fontWeight: 700, color: INK }}>Live Wearable</div>
             <div style={{ fontFamily: T, fontSize: 9, color: MUTED, marginTop: 1 }}>
-              Withings ScanWatch · Syncing every 5s
+              Withings ScanWatch · Syncing every {POLL_LABEL}
             </div>
           </div>
         </div>

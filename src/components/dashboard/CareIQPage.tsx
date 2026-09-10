@@ -667,7 +667,7 @@ export default function CareIQPage({ session }: { session: CCSession }) {
     let cancelled = false;
     (async () => {
       try {
-        const r = await fetch(`${HEALTH_OS_URL}/api/shield/decrypt`, {
+        const r = await fetch('/api/healthos/decrypt', {
           headers: { Authorization: `Bearer ${session.access_token}` },
           cache: 'no-store',
         });

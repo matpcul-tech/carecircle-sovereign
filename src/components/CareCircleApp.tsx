@@ -365,7 +365,7 @@ function useShieldPolling(session: CCSession | null): {
           if (!cancelled) setErr('Session expired');
           return;
         }
-        const r = await fetch(`${HEALTH_OS_URL}/api/shield/decrypt`, {
+        const r = await fetch('/api/healthos/decrypt', {
           headers: { Authorization: `Bearer ${valid.access_token}` },
           cache: 'no-store',
         });

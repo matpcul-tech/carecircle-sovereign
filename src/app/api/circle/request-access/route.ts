@@ -190,7 +190,7 @@ export async function POST(req: NextRequest) {
     const envErr = envProblem();
     if (envErr) {
       console.error('[request-access POST] env', envErr);
-      return bad('server misconfigured', 500);
+      return bad(`server misconfigured: ${envErr}`, 500);
     }
 
     if (!(await checkRateLimit(RL_POST, clientIp(req)))) {
@@ -344,7 +344,7 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     const envErr = envProblem();
-    if (envErr) return bad('server misconfigured', 500);
+    if (envErr) return bad(`server misconfigured: ${envErr}`, 500);
 
     const userId = await getUserId(bearerToken(req));
     if (!userId) return bad('authentication required', 401);

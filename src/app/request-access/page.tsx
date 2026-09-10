@@ -206,7 +206,7 @@ function RequestAccessInner() {
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600;700&display=swap');
         *{box-sizing:border-box}
         input::placeholder,textarea::placeholder{color:#516a87}
-        input:focus,select:focus,textarea:focus{border-color:#C07941 !important}
+        input:focus,select:focus,textarea:focus{border-color:#7BC8A0 !important}
       `}</style>
 
       <div style={{ maxWidth: 460, margin: '0 auto' }}>
@@ -392,13 +392,13 @@ function RequestAccessInner() {
                 borderRadius: 12,
                 border: 'none',
                 cursor: 'pointer',
-                background: 'linear-gradient(135deg,#C07941,#8B3A2A)',
-                color: '#F4EDE1',
+                background: 'linear-gradient(135deg,#7BC8A0,#3D8B5E)',
+                color: '#0B1829',
                 fontSize: 14,
                 fontWeight: 700,
                 fontFamily: O,
                 opacity: submitting ? 0.6 : 1,
-                boxShadow: '0 0 20px rgba(192,121,65,.3)',
+                boxShadow: '0 0 20px rgba(123,200,160,.3)',
               }}
             >
               {submitting ? 'Sending...' : 'Send request'}

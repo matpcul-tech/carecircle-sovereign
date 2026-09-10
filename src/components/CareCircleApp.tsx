@@ -90,6 +90,8 @@ interface ShieldPayload {
   panel_flagged: number;
   panel_in_range: number;
   decrypted_at: string;
+  device: string | null;
+  wearable_updated_at: string | null;
   biomarkers: BiomarkerPanel;
 }
 
@@ -429,6 +431,38 @@ function useShieldPolling(session: CCSession | null): {
 // LiveWearableStrip
 // =========================================================================
 
+// The Health OS parser normalises any vendor's CSV/JSON/XML export, so the
+// device is only ever a label for what was uploaded - never a gate on which
+// wearables are supported. Anything unrecognised still parses, and says so.
+const DEVICE_LABELS: Record<string, string> = {
+  fitbit: 'Fitbit',
+  apple_watch: 'Apple Watch',
+  garmin: 'Garmin',
+  samsung: 'Samsung Health',
+  google_fit: 'Google Fit',
+  generic: 'Wearable export',
+};
+
+function deviceLabel(device: string | null | undefined): string {
+  if (!device) return 'No device data yet';
+  return DEVICE_LABELS[device] || 'Wearable export';
+}
+
+/** Days since an ISO date, or null if it is missing or unparseable. */
+function daysSince(iso: string | null | undefined): number | null {
+  if (!iso) return null;
+  const then = Date.parse(iso);
+  if (Number.isNaN(then)) return null;
+  return Math.floor((Date.now() - then) / 86_400_000);
+}
+
+function freshnessLabel(days: number | null): string {
+  if (days === null) return 'No data';
+  if (days <= 0) return 'Today';
+  if (days === 1) return 'Yesterday';
+  return `${days}d ago`;
+}
+
 function LiveWearableStrip({ shield }: { shield: ShieldPayload | null }) {
   const tempEntry = flatBiomarker(shield?.biomarkers, 'body_temperature');
   const cells = [
@@ -527,41 +561,43 @@ function LiveWearableStrip({ shield }: { shield: ShieldPayload | null }) {
             </svg>
           </div>
           <div style={{ minWidth: 0 }}>
-            <div style={{ fontSize: 14, fontWeight: 700, color: INK }}>Live Wearable</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: INK }}>Wearable</div>
             <div style={{ fontFamily: T, fontSize: 9, color: MUTED, marginTop: 1 }}>
-              Withings ScanWatch · Syncing every {POLL_LABEL}
+              {deviceLabel(shield?.device)} · Checked every {POLL_LABEL}
             </div>
           </div>
         </div>
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 4,
-            padding: '4px 10px',
-            borderRadius: 12,
-            background: 'rgba(74,222,128,0.14)',
-            color: OK,
-            border: '1px solid rgba(74,222,128,0.4)',
-            fontFamily: T,
-            fontSize: 9,
-            fontWeight: 700,
-            textTransform: 'uppercase',
-            letterSpacing: '.14em',
-            flexShrink: 0,
-          }}
-        >
-          <span
-            style={{
-              width: 6,
-              height: 6,
-              borderRadius: '50%',
-              background: OK,
-              animation: 'pulse 1.5s infinite',
-            }}
-          />
-          LIVE
-        </div>
+        {(() => {
+          // A green "LIVE" dot regardless of the data was the dashboard's
+          // worst lie: readings arrive when an export is uploaded, so show
+          // how old the newest one actually is.
+          const days = daysSince(shield?.wearable_updated_at);
+          const stale = days === null || days > 2;
+          const tone = stale ? MUTED : OK;
+          return (
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 4,
+                padding: '4px 10px',
+                borderRadius: 12,
+                background: stale ? 'rgba(168,184,200,0.12)' : 'rgba(74,222,128,0.14)',
+                color: tone,
+                border: `1px solid ${stale ? 'rgba(168,184,200,0.35)' : 'rgba(74,222,128,0.4)'}`,
+                fontFamily: T,
+                fontSize: 9,
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '.14em',
+                flexShrink: 0,
+              }}
+            >
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: tone }} />
+              {freshnessLabel(days)}
+            </div>
+          );
+        })()}
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 6 }}>
         {cells.map((c) => (

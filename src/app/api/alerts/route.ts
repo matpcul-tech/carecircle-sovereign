@@ -21,6 +21,10 @@ interface Vitals {
   ldl?: number | null;
   bp_systolic?: number | null;
   bp_diastolic?: number | null;
+  // Wearable readings. Unlike the labs above these arrive continuously, so
+  // they are the ones that can catch a problem the same day it happens.
+  hr?: number | null;
+  spo2?: number | null;
 }
 
 interface PanelGradeChange {
@@ -97,6 +101,48 @@ function evaluate(v: Vitals): Flag[] {
       severity: 'critical',
       recommendation:
         'LDL is significantly elevated. Contact the primary-care provider this week to discuss statin therapy and dietary changes.',
+    });
+  }
+
+  // ---- Wearable metrics ---------------------------------------------------
+  // A wrist sensor is not a medical device: a cold hand or a loose band can
+  // fake a bad reading, so every flag below says to confirm before acting.
+  // The critical bands are the ones worth waking a caregiver for; the
+  // informational ones are "look at this today", so the thresholds stay
+  // conservative rather than firing on every stray sample.
+  const spo2 = typeof v.spo2 === 'number' ? v.spo2 : null;
+  if (spo2 !== null && spo2 < 88) {
+    flags.push({
+      metric: 'Blood Oxygen',
+      severity: 'critical',
+      recommendation:
+        'Blood oxygen is critically low. Check on them now. Call 911 if they are short of breath, confused, or their lips or face look blue. Re-check with a fingertip pulse oximeter - a cold hand or loose watch band can produce a false low reading.',
+    });
+  } else if (spo2 !== null && spo2 < 93) {
+    flags.push({
+      metric: 'Blood Oxygen',
+      severity: 'informational',
+      recommendation:
+        'Blood oxygen is below the normal range. Have them sit up, rest, and re-check with a fingertip pulse oximeter. Contact the care team today if it stays below 93% or if they feel breathless.',
+    });
+  }
+
+  const hr = typeof v.hr === 'number' ? v.hr : null;
+  if (hr !== null && (hr > 130 || hr < 40)) {
+    flags.push({
+      metric: 'Heart Rate',
+      severity: 'critical',
+      recommendation:
+        hr > 130
+          ? 'Heart rate is very high. Check on them now and confirm they are at rest - exercise explains most high readings. Call 911 if they have chest pain, trouble breathing, fainting, or confusion.'
+          : 'Heart rate is very low. Check that they are awake and responsive. Call 911 if they are faint, dizzy, confused, or hard to rouse. Some heart medications lower the pulse by design, so mention this to the care team.',
+    });
+  } else if (hr !== null && (hr > 100 || hr < 50)) {
+    flags.push({
+      metric: 'Heart Rate',
+      severity: 'informational',
+      recommendation:
+        'Heart rate is outside the usual resting range. Re-check after they have rested quietly for five minutes, and mention it to the care team if it stays there or comes with dizziness, breathlessness, or swelling.',
     });
   }
 

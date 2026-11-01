@@ -31,6 +31,12 @@ const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 const HEALTH_OS_URL =
   process.env.NEXT_PUBLIC_HEALTH_OS_URL || 'https://sovereignhealthcareos.com';
 
+// Which chat the tab renders. Unset means off, so a deploy that forgets the
+// variable falls back to Guided Answers rather than silently calling a
+// model. This only picks the UI - the route itself is gated server-side by
+// AI_CHAT_ENABLED, which is not a NEXT_PUBLIC variable.
+const AI_CHAT_ENABLED = process.env.NEXT_PUBLIC_AI_CHAT_ENABLED === 'true';
+
 const T = "'DM Mono',monospace";
 const P = "'Playfair Display',serif";
 const O = "'Outfit',sans-serif";
@@ -1547,6 +1553,303 @@ function FamilyView({ session, router }: { session: CCSession; router: ReturnTyp
 }
 
 // =========================================================================
+// GuidedAnswersView (no AI: reviewed answers read straight from Supabase)
+// =========================================================================
+
+interface GuidedTopic {
+  id: string;
+  slug: string;
+  title: string;
+  sort_order: number;
+}
+
+interface GuidedAnswer {
+  id: string;
+  topic_id: string;
+  question: string;
+  answer: string;
+  source_name: string | null;
+  source_url: string | null;
+  sort_order: number;
+}
+
+const GUIDED_FOOTER =
+  'General wellness information. Not medical advice. Talk with your care team about your own health.';
+
+// Elder-mode scale, matching the Health OS (.hos.elder, .le8-one, .le8-nav):
+// 17px body, 20px titles, 16px controls on a 48px minimum target, one
+// column. Sizes are copied from there rather than chosen here so the two
+// apps stay legible in the same way.
+const GUIDED_TAP = {
+  width: '100%',
+  minHeight: 48,
+  padding: '12px 18px',
+  borderRadius: 12,
+  fontFamily: O,
+  fontSize: 16,
+  fontWeight: 600,
+  textAlign: 'left',
+  cursor: 'pointer',
+} as const;
+
+function GuidedBack({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      style={{
+        ...GUIDED_TAP,
+        width: 'auto',
+        border: `1px solid ${TEAL}`,
+        background: 'rgba(61,139,94,0.10)',
+        color: TEAL2,
+        marginBottom: 12,
+      }}
+    >
+      ← Back
+    </button>
+  );
+}
+
+function GuidedMissButton({ onClick, noted }: { onClick: () => void; noted: boolean }) {
+  if (noted) {
+    return (
+      <div
+        style={{
+          marginTop: 14,
+          padding: '12px 18px',
+          borderRadius: 12,
+          background: 'rgba(61,139,94,0.10)',
+          border: `1px solid ${TEAL}`,
+          color: TEAL2,
+          fontSize: 16,
+          lineHeight: 1.5,
+        }}
+      >
+        Thank you. We noted that this was missing.
+      </div>
+    );
+  }
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      style={{
+        ...GUIDED_TAP,
+        marginTop: 14,
+        border: BORDER,
+        background: CARD,
+        color: MUTED,
+        textAlign: 'center',
+      }}
+    >
+      I don&apos;t see my question
+    </button>
+  );
+}
+
+function GuidedAnswersView({
+  session,
+  router,
+}: {
+  session: CCSession;
+  router: ReturnType<typeof useRouter>;
+}) {
+  const [topics, setTopics] = useState<GuidedTopic[]>([]);
+  const [answers, setAnswers] = useState<GuidedAnswer[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState<string | null>(null);
+  const [topicId, setTopicId] = useState<string | null>(null);
+  const [answerId, setAnswerId] = useState<string | null>(null);
+  const [missNoted, setMissNoted] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const valid = await ensureValidSession(session);
+        if (!valid) {
+          router.push('/login');
+          return;
+        }
+        // No status filter here on purpose: row-level security returns
+        // approved answers only, so a draft cannot reach the client even
+        // if this query is wrong.
+        const [tRes, aRes] = await Promise.all([
+          sbGet(valid.access_token, 'guided_topics?select=id,slug,title,sort_order&order=sort_order.asc'),
+          sbGet(
+            valid.access_token,
+            'guided_answers?select=id,topic_id,question,answer,source_name,source_url,sort_order&order=sort_order.asc',
+          ),
+        ]);
+        if (cancelled) return;
+        if (!tRes.ok || !aRes.ok) {
+          setErr('Answers are not available right now. Please try again later.');
+          return;
+        }
+        setTopics((await tRes.json()) as GuidedTopic[]);
+        setAnswers((await aRes.json()) as GuidedAnswer[]);
+      } catch {
+        if (!cancelled) setErr('Answers are not available right now. Please try again later.');
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [session, router]);
+
+  // Records that a gap exists, nothing else: no user id, no typed text.
+  // Best-effort by design - someone reporting a missing answer should never
+  // be shown an error about it.
+  const reportMiss = async (forTopic: string | null) => {
+    setMissNoted(true);
+    try {
+      const valid = await ensureValidSession(session);
+      if (!valid) return;
+      await sbWrite(valid.access_token, 'guided_misses', {
+        method: 'POST',
+        body: JSON.stringify({ topic_id: forTopic }),
+      });
+    } catch {
+      /* no-op */
+    }
+  };
+
+  const card = {
+    background: CARD,
+    border: BORDER,
+    borderLeft: `5px solid ${TEAL}`,
+    borderRadius: 14,
+    padding: 18,
+  } as const;
+
+  if (loading) {
+    return <div style={{ fontSize: 17, color: MUTED, padding: '18px 0' }}>Loading answers...</div>;
+  }
+  if (err) {
+    return <div style={{ ...card, fontSize: 17, color: INK, lineHeight: 1.5 }}>{err}</div>;
+  }
+
+  const answersFor = (tid: string) => answers.filter((a) => a.topic_id === tid);
+  const topicsWithAnswers = topics.filter((t) => answersFor(t.id).length > 0);
+
+  // ----- Screen 3: the answer -------------------------------------------
+  const openAnswer = answers.find((a) => a.id === answerId);
+  if (openAnswer) {
+    return (
+      <>
+        <GuidedBack onClick={() => setAnswerId(null)} />
+        <div style={card}>
+          <div style={{ fontFamily: P, fontSize: 20, color: INK, lineHeight: 1.35, marginBottom: 12 }}>
+            {openAnswer.question}
+          </div>
+          <div style={{ fontSize: 17, color: INK, lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
+            {openAnswer.answer}
+          </div>
+          {openAnswer.source_name && (
+            <div style={{ marginTop: 16, fontFamily: T, fontSize: 14, color: SUB, lineHeight: 1.5 }}>
+              Source: {openAnswer.source_name}
+            </div>
+          )}
+        </div>
+        <div style={{ marginTop: 14, fontSize: 14, color: MUTED, lineHeight: 1.5 }}>{GUIDED_FOOTER}</div>
+      </>
+    );
+  }
+
+  // ----- Screen 2: questions in a topic ---------------------------------
+  const openTopic = topics.find((t) => t.id === topicId);
+  if (openTopic) {
+    const list = answersFor(openTopic.id);
+    return (
+      <>
+        <GuidedBack
+          onClick={() => {
+            setTopicId(null);
+            setMissNoted(false);
+          }}
+        />
+        <div style={{ fontFamily: P, fontSize: 20, color: INK, marginBottom: 12 }}>{openTopic.title}</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {list.map((a) => (
+            <button
+              key={a.id}
+              type="button"
+              onClick={() => setAnswerId(a.id)}
+              style={{
+                ...GUIDED_TAP,
+                border: BORDER,
+                borderLeft: `5px solid ${TEAL}`,
+                background: CARD,
+                color: INK,
+                fontSize: 17,
+                fontWeight: 500,
+                lineHeight: 1.45,
+                padding: '16px 18px',
+              }}
+            >
+              {a.question}
+            </button>
+          ))}
+        </div>
+        <GuidedMissButton noted={missNoted} onClick={() => reportMiss(openTopic.id)} />
+        <div style={{ marginTop: 14, fontSize: 14, color: MUTED, lineHeight: 1.5 }}>{GUIDED_FOOTER}</div>
+      </>
+    );
+  }
+
+  // ----- Screen 1: topics -----------------------------------------------
+  return (
+    <>
+      <div style={{ fontFamily: P, fontSize: 20, color: INK, marginBottom: 4 }}>Answers</div>
+      <div style={{ fontSize: 17, color: SUB, lineHeight: 1.5, marginBottom: 14 }}>
+        Everyday wellness questions, written and checked by people.
+      </div>
+
+      {topicsWithAnswers.length === 0 ? (
+        <div style={{ ...card, fontSize: 17, color: INK, lineHeight: 1.6 }}>
+          No answers have been published yet. They will appear here as soon as they are ready.
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {topicsWithAnswers.map((t) => (
+            <button
+              key={t.id}
+              type="button"
+              onClick={() => {
+                setTopicId(t.id);
+                setMissNoted(false);
+              }}
+              style={{
+                ...GUIDED_TAP,
+                border: BORDER,
+                borderLeft: `5px solid ${TEAL}`,
+                background: CARD,
+                color: INK,
+                fontFamily: P,
+                fontSize: 20,
+                fontWeight: 500,
+                padding: '18px',
+              }}
+            >
+              {t.title}
+              <div style={{ fontFamily: O, fontSize: 14, color: SUB, marginTop: 4, fontWeight: 400 }}>
+                {answersFor(t.id).length} question{answersFor(t.id).length === 1 ? '' : 's'}
+              </div>
+            </button>
+          ))}
+        </div>
+      )}
+
+      <GuidedMissButton noted={missNoted} onClick={() => reportMiss(null)} />
+      <div style={{ marginTop: 14, fontSize: 14, color: MUTED, lineHeight: 1.5 }}>{GUIDED_FOOTER}</div>
+    </>
+  );
+}
+
+// =========================================================================
 // AIView (Tribal Health OS)
 // =========================================================================
 
@@ -1954,7 +2257,7 @@ const NAV: Array<{ id: TabId; icon: string; label: string }> = [
   { id: 'meds', icon: '☥', label: 'Meds' },
   { id: 'cal', icon: '⦾', label: 'Cal' },
   { id: 'family', icon: '♤', label: 'Family' },
-  { id: 'ai', icon: '☸', label: 'Health OS' },
+  { id: 'ai', icon: '☸', label: AI_CHAT_ENABLED ? 'Health OS' : 'Answers' },
 ];
 
 export default function CareCircleApp() {
@@ -2050,7 +2353,13 @@ export default function CareCircleApp() {
       case 'family':
         return <FamilyView session={session} router={router} />;
       case 'ai':
-        return <AIView session={session} router={router} />;
+        // Flag off: Guided Answers renders and AIView is never mounted, so
+        // there is no code path from this tab to a model.
+        return AI_CHAT_ENABLED ? (
+          <AIView session={session} router={router} />
+        ) : (
+          <GuidedAnswersView session={session} router={router} />
+        );
       case 'home':
       default:
         return (

@@ -2,6 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { FetchStub, makeReq, readJson } from "./harness.mts";
 
+// The shield route is gated server-side; these tests drive the LLM path.
+process.env.AI_CHAT_ENABLED = "true";
 process.env.NEXT_PUBLIC_SUPABASE_URL = "https://sb.test";
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "anon-key";
 process.env.SUPABASE_SERVICE_ROLE_KEY = "service-role-key";

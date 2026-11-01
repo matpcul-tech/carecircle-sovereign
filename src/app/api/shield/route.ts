@@ -6,6 +6,12 @@ import { chatComplete, llmConfigError, type LlmMessage } from '@/lib/providers/l
 
 export const runtime = 'edge';
 
+// Server-side AI gate. Deliberately NOT NEXT_PUBLIC: a public flag is
+// inlined into the browser bundle and anyone can call the route regardless
+// of it. Unset means off, so a deploy that forgets the variable fails
+// closed rather than silently serving the model.
+const AI_CHAT_ENABLED = process.env.AI_CHAT_ENABLED === 'true';
+
 const RATE_LIMIT = { name: 'shield', max: 30, windowSeconds: 60 };
 
 // Bound the work per request. The scan is unauthenticated-abuse-proofed by
@@ -47,6 +53,17 @@ const SYSTEM = `You are the Tribal Health OS assistant inside CareCircle Soverei
 
 export async function POST(req: NextRequest) {
   try {
+    // Server-side kill switch, checked before auth, rate limiting, body
+    // parsing and any provider call. The client flag decides which UI
+    // renders; this decides whether the model can be reached at all, so a
+    // stale bundle, a direct curl, or a flag flipped in only one place
+    // cannot reach a provider. 404 rather than 403: when the feature is
+    // off the route does not exist, and the response says nothing about
+    // what is configured behind it.
+    if (!AI_CHAT_ENABLED) {
+      return NextResponse.json({ error: 'not found' }, { status: 404 });
+    }
+
     // Require a valid Supabase session. Without this the endpoint is an open,
     // billable proxy to the Anthropic API for any anonymous caller.
     const userId = await getUserId(bearerToken(req));

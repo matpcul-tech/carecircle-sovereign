@@ -2,6 +2,10 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { FetchStub, makeReq, readJson } from "./harness.mts";
 
+// These tests exercise the LLM path, which only exists when the server-side
+// gate is on. The off case is covered in shield-gate.test.mts, which needs
+// its own process because the flag is read once at module load.
+process.env.AI_CHAT_ENABLED = "true";
 process.env.ANTHROPIC_API_KEY = "sk-test";
 process.env.NEXT_PUBLIC_SUPABASE_URL = "https://sb.test";
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "anon-key";

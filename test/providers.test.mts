@@ -154,6 +154,8 @@ test("sms http provider posts to the configured gateway", async () => {
 // ---------------- End-to-end through the shield route ----------------
 test("shield route runs against a local OpenAI-compatible model (no Anthropic call)", async () => {
   resetEnv();
+  // Set before the route is imported: the gate is read once at module load.
+  process.env.AI_CHAT_ENABLED = "true";
   process.env.NEXT_PUBLIC_SUPABASE_URL = "https://sb.test";
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "anon";
   process.env.SUPABASE_SERVICE_ROLE_KEY = "svc";
